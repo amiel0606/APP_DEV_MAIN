@@ -1,33 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fur-Ever Buddies</title>
-    <link rel="stylesheet" type="text/css" href="./css/style.css">
-    <link rel="stylesheet" type="text/css" href="./css/welcome.css">
-    <link rel = "icon" type = "image/png" href = "./image/logo.png">
-    <script src="./js/script.js"></script>
-
-    <?php
-    $error_info = null;
-        if ($error_info != null) {
-            ?> <style>.error_info{display:block} </style> <?php
-        }
+<?php
+    include_once('./includes/header.php');
 ?>
-</head>
-<body>
-    <div class="bg">
-            <div class="nav">
-                <div class="nav-link">
-                    <img class="logo" src="./image/logo.png" />
-                    <img class="line" src="./image/line.svg" />
-                    <a href="#" class="nav-links openbtn" onclick="openForm( )">Sign Up</a>
-                    <a href="#team" class="nav-links">About Us</a>
-                    <a href="#homer" class="nav-links">Home</a>
-                </div>
-                <div class="txt-logo">Fur-Ever Buddies</div>
-            </div>
         <img src="./image/dog_bgg.png" id="dog_bgg"> 
         <div class="tagline"> <h2 class="tags">Fur-Ever Buddies: Find Your Furry Soulmate</h2> </div>
 
@@ -35,19 +8,38 @@
                 <span onclick="closeForm()" class="closebtn" title="Close Overlay">&#10005;</span>
                 <div class="wrap">
                     <h2>Sign Up</h2>
-                    <form action="register.php" method="post">
+                    <form action="./includes/register.php" method="post">
                         <input name="Fname" type="text" placeholder="First Name">
                         <input name="Lname" type="text" placeholder="Last Name">
                         <input name="city" type="text" placeholder="City">
                         <input name="UserName" type="text" placeholder="Username">
                         <input name="password" type="password" placeholder="Password">
                         <input name="ConfPassword" type="password" placeholder="Confirm Password">
-                        <input type="submit"value="Sign Up"></input>
+                        <input name="submit" type="submit"value="Sign Up"></input>
                     </form>
-                    <p>Already have an Account? <a href="loggedin.php" class ="disable">Click Here</a></p>
-                    <p class="error_info">
-                        <?php echo $error_info; ?>
-                    </p>
+                    <p>Already have an Account? <a href="log_in.php" class ="disable">Click Here</a></p>
+                    <?php
+                        if (isset($_GET["error"])) {
+                            if ($_GET["error"] == "EmptyInput") {
+                                echo '<p class = "errors">Fill in all fields!</p>';
+                            }
+                            else if ($_GET["error"] == "PassNotMatching") {
+                                echo '<p class = "errors">Passwords do not match!</p>';
+                            }
+                            else if ($_GET["error"] == "UsernameTaken") {
+                                echo '<p class = "errors">This Username is already taken!</p>';
+                            }
+                            else if ($_GET["error"] == "InvalidUsername") {
+                                echo '<p class = "errors">Choose a proper Username </p>';
+                            }
+                            else if ($_GET["error"] == "stmtFailed") {
+                                echo '<p class = "errors">Something went wrong, </br> please try again later.</p>';
+                            }
+                            elseif ($_GET["error"] == "none") {
+                                echo '<p class = "errors">Successfully registered! </br>  Please log in to continue.</p>';
+                            }
+                        }
+                    ?>
                 </div>
             </div>
         <div id="home_info" >
@@ -135,5 +127,6 @@
 	}
 	// ]]>
 </script>
-</body>
-</html>
+<?php
+include_once('./includes/footer.php');
+?>
