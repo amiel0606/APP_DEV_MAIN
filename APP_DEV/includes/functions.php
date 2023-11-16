@@ -87,14 +87,14 @@ function loginUser($conn, $uName, $pwd) {
     $UserExists = userExist($conn,$uName);
 
     if ($UserExists == false) {
-        header("location: log_in.php?error=WrongLogin");
+        header("location: ../log_in.php?error=WrongLogin");
         exit();
     }
     $pwdHashed = $UserExists["password"];
     $checkPass = password_verify($pwd, $pwdHashed);
 
     if ($checkPass === false) {
-        header("location: log_in.php?error=WrongLogin");
+        header("location: ../log_in.php?error=WrongLogin");
         exit();
     }
     else if ($checkPass === true) {
