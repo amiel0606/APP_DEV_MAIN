@@ -16,3 +16,26 @@ function closeForm() {
     document.removeEventListener('wheel', preventScroll);
 }
 
+const loginLink = document.querySelector('login-link');
+const registerLink = document.querySelector('register-link');
+
+loginLink.addEventListener('click', ()=>{
+    wrap.classList.add('active');
+});
+
+registerLink.addEventListener('click', ()=>{
+    wrap.classList.remove('active');
+});
+
+function showSignUpForm() {
+    document.getElementById("loginWrap").style.display = "none";
+    document.getElementById("signupWrap").style.display = "block";
+}
+function showLogInForm() {
+    document.getElementById("loginWrap").style.display = "block";
+    document.getElementById("signupWrap").style.display = "none";
+}
+
+
+
+

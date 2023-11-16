@@ -11,6 +11,7 @@
     box-shadow: 6px 7px 11px 0px rgba(0,0,0,0.68);
     border-radius: 20px;
     position: absolute;
+    transition: height .3s ease;
 }
 .wrap h2 {
     color: var(--color-text);
@@ -89,4 +90,16 @@ input {
     text-align: center;
     font-weight: bold;
     color: var(--color-text);
+}
+.wrap.active{
+    height: 520px;
+}
+.wrap .form-box.login{
+    display: none;
+    opacity: 0;
+}
+.wrap.active .form-box.login{
+    display: block;
+    opacity: 1;
+    transform: translateX(-400px);
 }
