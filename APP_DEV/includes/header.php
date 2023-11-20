@@ -12,9 +12,11 @@
     <link rel="stylesheet" type="text/css" href="./css/welcome.css">
     <link rel = "icon" type = "image/png" href = "./image/logo.png">
     <link rel="stylesheet" href="./css/inside.css">
+
     <script src="./js/script.js"></script>
 </head>
 <body>
+    
     <div class="bg">
             <div class="nav">
                 <div class="nav-link">

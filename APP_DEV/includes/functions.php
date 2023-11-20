@@ -36,7 +36,7 @@ function userExist($conn,$UserName) {
     $sql = "SELECT * FROM tblusers WHERE username = ?";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql)) {
-        header("location: index.php?error=stmtFailed");
+        header("location: ../index.php?error=stmtFailed");
         exit();
     }
 
@@ -59,7 +59,7 @@ function createUser($conn,$UserName,$Lname,$Fname,$city,$password){
     $sql = "INSERT INTO tblusers(username, password, city, fname, lname) VALUES(?, ?, ?, ?, ?);";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt,$sql)) {
-        header("location: index.php?error=stmtFailed");
+        header("location: ../index.php?error=stmtFailed");
         exit();
     }
 
@@ -68,7 +68,7 @@ function createUser($conn,$UserName,$Lname,$Fname,$city,$password){
     mysqli_stmt_bind_param($stmt, "sssss", $UserName, $hashedPass, $city, $Fname, $Lname);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    header("location: index.php?error=none");
+    header("location: ../index.php?error=none");
     exit();
 }
 
