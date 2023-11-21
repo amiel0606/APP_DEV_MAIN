@@ -6,7 +6,7 @@
         <ul>
             <li><a href="#"> <img class="logo-side" src="./image/account.png">Profile</a></li>
             <li><a href="adopt.php"><img class="logo-side" src="./image/dog.png">Adopt</a></li>
-            <li><a href="#"><img class="logo-side" src="./image/email.png">Messages</a></li>
+            <li><a href="message.php"><img class="logo-side" src="./image/email.png">Messages</a></li>
             <li><a href="./includes/logout.php"><img class="logo-side" src="./image/logout.png">Logout</a></li>
         </ul>
     </div>
