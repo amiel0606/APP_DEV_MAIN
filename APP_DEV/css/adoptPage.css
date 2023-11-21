@@ -1,0 +1,46 @@
+#dog-container {
+    display: block;
+    align-items: center; /* Center the content horizontally */
+    justify-content: center; /* Center the content vertically */
+    margin-right: 1000px;
+}
+
+
+#dog-card {
+top: 200px;
+left: 700px;
+position:absolute;
+width: 500px;
+height: 600px;
+background-color: #f2f2f2;
+border-radius: 10px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+#dog-card img {
+width: 90%;
+height: 550px;
+object-fit: cover;
+
+}
+#dog-buttons {
+position: absolute;
+bottom: 45px;
+display: flex;
+left: 755px;
+align-items: flex-end;
+width: 100%;
+height: 50px;
+}
+
+.reject-button,
+.heart-button,
+.paw-button {
+border-radius: 20px;
+font-size: 60px;
+width: 110px;
+cursor: pointer;
+margin-right: 30px;
+}

@@ -3,14 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2023 at 03:42 PM
+-- Generation Time: Nov 16, 2023, at 03:42 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -33,7 +32,8 @@ CREATE TABLE `tblusers` (
   `city` varchar(100) NOT NULL,
   `fname` varchar(100) NOT NULL,
   `lname` varchar(100) NOT NULL,
-  `uID` int(11) NOT NULL
+  `uID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`uID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -55,8 +55,6 @@ INSERT INTO `tblusers` (`username`, `password`, `city`, `fname`, `lname`, `uID`)
 --
 -- Indexes for table `tblusers`
 --
-ALTER TABLE `tblusers`
-  ADD PRIMARY KEY (`uID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -67,6 +65,52 @@ ALTER TABLE `tblusers`
 --
 ALTER TABLE `tblusers`
   MODIFY `uID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbldogs`
+--
+
+CREATE TABLE `tbldogs` (
+  `dogID` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  PRIMARY KEY (`dogID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblfavorites`
+--
+
+CREATE TABLE `tblfavorites` (
+  `favoriteID` int(11) NOT NULL AUTO_INCREMENT,
+  `userID` int(11) NOT NULL,
+  `dogName` varchar(100) NOT NULL,
+  `dogImage` varchar(255) NOT NULL,
+  PRIMARY KEY (`favoriteID`),
+  KEY `userID` (`userID`),
+  CONSTRAINT `tblfavorites_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `tblusers` (`uID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tbldogs`
+--
+ALTER TABLE `tbldogs`
+  MODIFY `dogID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+--
+-- AUTO_INCREMENT for table `tblfavorites`
+--
+ALTER TABLE `tblfavorites`
+  MODIFY `favoriteID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
