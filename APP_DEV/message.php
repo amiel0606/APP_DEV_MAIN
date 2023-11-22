@@ -1,5 +1,9 @@
 <?php
 include_once('./includes/header.php');
+if (!isset($_SESSION["uID"])) {
+    header("location: ./index.php?UserLoggedOut");
+    exit();
+}
 ?>  
 
     <div id="left-panel">
