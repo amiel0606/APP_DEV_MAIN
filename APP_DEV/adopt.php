@@ -14,7 +14,6 @@ if (!isset($_SESSION["uID"])) {
             <li><a href="./includes/logout.php"><img class="logo-side" src="./image/logout.png">Logout</a></li>
         </ul>
     </div>
-    <div id="right-panel">
 <div class="right-panel">
     <div id="dog-container">
         <div id="dog-card">
