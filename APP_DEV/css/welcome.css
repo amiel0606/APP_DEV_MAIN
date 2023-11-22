@@ -59,7 +59,7 @@ input {
 }
 
 .myOverlay{
-    display: none;
+    display: block;
     position: fixed;
     justify-content: center;
     align-items: center;
