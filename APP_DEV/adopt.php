@@ -7,7 +7,7 @@ if (!isset($_SESSION["uID"])) {
 ?>
     <div id="left-panel">
         <ul>
-            <li><a href="#"> <img class="logo-side" src="./image/account.png">Profile</a></li>
+            <li><a href="welcome.php"> <img class="logo-side" src="./image/account.png">Profile</a></li>
             <li><a href="adopt.php"><img class="logo-side" src="./image/dog.png">Adopt</a></li>
             <li><a href="message.php"><img class="logo-side" src="./image/email.png">Messages</a></li>
             <li><a href="./includes/logout.php"><img class="logo-side" src="./image/logout.png">Logout</a></li>
@@ -21,11 +21,11 @@ if (!isset($_SESSION["uID"])) {
             <?php
                 include_once './includes/dbCon.php';
                 $UserN = $_SESSION['username'];
-                $sql = "SELECT image FROM tbldogs ORDER BY RAND() LIMIT 1";
+                $sql = "SELECT * FROM tbldogs WHERE username != '$UserN' ORDER BY RAND() LIMIT 1";
                 $result = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
-                        ?><img src="./uploads/<?php echo $row['image']?>"><?php
+                            ?><img src="./uploads/<?php echo $row['image']?>"><?php
                     }
                 }
             ?>
