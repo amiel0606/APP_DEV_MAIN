@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2023 at 01:24 PM
+-- Generation Time: Nov 23, 2023 at 10:07 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -43,17 +43,11 @@ CREATE TABLE `tbldogs` (
 --
 
 INSERT INTO `tbldogs` (`username`, `dogID`, `name`, `breed`, `age`, `description`, `weight`, `image`) VALUES
-('amiel', 1, 'nigger', 'husky', 'aw', 'adwda', '', '655edbbec0bf92.96462726.jpg'),
-('amiel', 2, 'Black Eye', 'aspin', '12', 'awdawd', '', 'blackEye.jpg'),
-('admin', 3, 'enz', 'ewan', '', 'nigga', '', 'enz.jpg'),
-('admin', 4, 'igit', 'aspin', '12', 'ewan', '', 'igit.jpg'),
-('admin', 5, 'pepper', 'shih tzu', '11', 'ewan', '', 'pepper.jpg'),
-('amiel', 6, 'awd', 'awd', 'aw', 'awd', '', '655ee40a7098d0.09578960.jpg'),
-('amiel', 7, 'awdawd', 'awdad', 'ad', 'dawdad', '', '655ee4b225a0b5.74442308.jpg'),
-('amiel', 8, 'awda', 'wdawd', 'aw', 'awdawd', '', '655ee4ef119623.17479117.jpg'),
-('amiel', 663, 'awd', 'awda', 'da', 'awd', '', '655ee54141df77.63123655.jpg'),
-('amiel', 664, 'awdawd', 'awdaw', 'aw', 'dada', '', '655eeb70c5aab8.18286175.png'),
-('amiel', 667, 'Black Eye', 'aspin', '', '', '22', '655f08c3c59893.31248353.jpg');
+('Renz', 673, 'Ice', 'Shih Tzu', '3', 'Likes treats', '4', '655fad34c06f21.80114307.jpg'),
+('Renz', 674, 'Pepper', 'Shih Tzu', '2', 'likes to play with toys', '3', '655fad5b23d9a7.80129125.jpg'),
+('Renz', 675, 'Goldy', 'Golden Retriever', '5', 'loves belly rubs', '28', '655fade2a2cdc1.62490960.jpg'),
+('Ferrer1515', 676, 'Igit', 'Aspin', '3', 'likes cat food', '15', '655fb2b8466a90.53297971.jpg'),
+('Ferrer1515', 677, 'Blue and White', 'Huskies', '3 months', 'doesn\'t like to be separated', '1', '655fb7d85aef67.18424636.jpg');
 
 -- --------------------------------------------------------
 
@@ -63,6 +57,7 @@ INSERT INTO `tbldogs` (`username`, `dogID`, `name`, `breed`, `age`, `description
 
 CREATE TABLE `tblfavorites` (
   `ownerUser` varchar(255) NOT NULL,
+  `dogID` int(100) NOT NULL,
   `dogName` varchar(100) NOT NULL,
   `dogImage` varchar(255) NOT NULL,
   `dogBreed` varchar(255) NOT NULL,
@@ -75,11 +70,11 @@ CREATE TABLE `tblfavorites` (
 -- Dumping data for table `tblfavorites`
 --
 
-INSERT INTO `tblfavorites` (`ownerUser`, `dogName`, `dogImage`, `dogBreed`, `dogAge`, `dogDescription`, `dogWeight`) VALUES
-('admin', 'nigger', '655edbbec0bf92.96462726.jpg', 'husky', 'aw', 'adwda', ''),
-('amiel', 'pepper', 'pepper.jpg', 'shih tzu', '11', 'ewan', ''),
-('amiel', 'enz', 'enz.jpg', 'ewan', '', 'nigga', ''),
-('amiel', 'igit', 'igit.jpg', 'aspin', '12', 'ewan', ''),
+INSERT INTO `tblfavorites` (`ownerUser`, `dogID`, `dogName`, `dogImage`, `dogBreed`, `dogAge`, `dogDescription`, `dogWeight`) VALUES
+('Ferrer1515', 673, 'Ice', '655fad34c06f21.80114307.jpg', 'Shih Tzu', '3', 'Likes treats', '4'),
+('Ferrer1515', 674, 'Pepper', '655fad5b23d9a7.80129125.jpg', 'Shih Tzu', '2', 'likes to play with toys', '3'),
+('Renz', 676, 'Igit', '655fb2b8466a90.53297971.jpg', 'Aspin', '3', 'likes cat food', '15'),
+('Renz', 677, 'Blue and White', '655fb7d85aef67.18424636.jpg', 'Huskies', '3 months', 'doesn\'t like to be separated', '1');
 
 -- --------------------------------------------------------
 
@@ -97,17 +92,7 @@ CREATE TABLE `tblrejecteddogs` (
 --
 
 INSERT INTO `tblrejecteddogs` (`username`, `dogID`) VALUES
-('Renz', 1),
-('Renz', 2),
-('Renz', 3),
-('Renz', 4),
-('Renz', 5),
-('Renz', 6),
-('Renz', 7),
-('Renz', 8),
-('Renz', 663),
-('Renz', 664),
-('Renz', 667);
+('Ferrer1515', 675);
 
 -- --------------------------------------------------------
 
@@ -135,7 +120,8 @@ INSERT INTO `tblusers` (`username`, `password`, `city`, `fname`, `lname`, `uID`)
 ('admin', '$2y$10$jkwhkebfNcCvoOlsz1EnneENR5pb4tO0kmhRFwFnUCzNQtRGVnk8a', 'Imus', 'Amiel Carhyl', 'Lapid', 4),
 ('aaawd', '$2y$10$IdRQ6GhKYaewduYxPjdPUOZnERrnhFMq1EtM9hEXFmLpaGYQwXJla', 'Imus', 'Amiel Carhyl', 'Lapid', 5),
 ('hArt06', '$2y$10$orprCUIzB6YcUpDh4qKRmujZCsNUUfmjNI8Rzn9iUOVXChn4vymnW', 'Caloocan', 'Nicole Heart', 'Mendoza', 6),
-('Renz', '$2y$10$A7okzTUUynmbuv8JiuQjdOLt9OVb9E/S98NGQ7tPsTwPcpvV04Izq', 'General Trias', 'Jorenz', 'Ferrer', 7);
+('Renz', '$2y$10$A7okzTUUynmbuv8JiuQjdOLt9OVb9E/S98NGQ7tPsTwPcpvV04Izq', 'General Trias', 'Jorenz', 'Ferrer', 7),
+('Ferrer1515', '$2y$10$YWqK8bTdgj38qpyHBtT.nuxRqbmLj1YtvjOceXbP00y1q8FfeXfv6', 'General Trias', 'Joseph', 'Ferrer', 8);
 
 --
 -- Indexes for dumped tables
@@ -146,7 +132,15 @@ INSERT INTO `tblusers` (`username`, `password`, `city`, `fname`, `lname`, `uID`)
 --
 ALTER TABLE `tbldogs`
   ADD PRIMARY KEY (`dogID`),
-  ADD KEY `username` (`username`);
+  ADD KEY `username` (`username`),
+  ADD KEY `idx_dogID` (`dogID`);
+
+--
+-- Indexes for table `tblfavorites`
+--
+ALTER TABLE `tblfavorites`
+  ADD PRIMARY KEY (`ownerUser`,`dogID`),
+  ADD KEY `FK_dog_favorite` (`dogID`);
 
 --
 -- Indexes for table `tblrejecteddogs`
@@ -170,17 +164,24 @@ ALTER TABLE `tblusers`
 -- AUTO_INCREMENT for table `tbldogs`
 --
 ALTER TABLE `tbldogs`
-  MODIFY `dogID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=668;
+  MODIFY `dogID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=678;
 
 --
 -- AUTO_INCREMENT for table `tblusers`
 --
 ALTER TABLE `tblusers`
-  MODIFY `uID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `uID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `tblfavorites`
+--
+ALTER TABLE `tblfavorites`
+  ADD CONSTRAINT `FK_dog_favorite` FOREIGN KEY (`dogID`) REFERENCES `tbldogs` (`dogID`),
+  ADD CONSTRAINT `FK_user_favorite` FOREIGN KEY (`ownerUser`) REFERENCES `tblusers` (`username`);
 
 --
 -- Constraints for table `tblrejecteddogs`
