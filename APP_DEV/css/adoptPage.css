@@ -1,46 +1,155 @@
 #dog-container {
     display: block;
-    align-items: center; /* Center the content horizontally */
-    justify-content: center; /* Center the content vertically */
+    align-items: center;
+    justify-content: center;
     margin-right: 1000px;
 }
 
 
 #dog-card {
-top: 200px;
-left: 700px;
-position:absolute;
-width: 500px;
-height: 600px;
-background-color: #f2f2f2;
-border-radius: 10px;
-display: flex;
-align-items: center;
-justify-content: center;
+    top: 200px;
+    left: 700px;
+    position: absolute;
+    width: 500px;
+    height: 600px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #dog-card img {
-width: 90%;
-height: 550px;
-object-fit: cover;
-
+    width: 90%;
+    height: 550px;
+    object-fit: cover;
 }
+
 #dog-buttons {
-position: absolute;
-bottom: 45px;
-display: flex;
-left: 755px;
-align-items: flex-end;
-width: 100%;
-height: 50px;
+    position: absolute;
+    bottom: 45px;
+    display: flex;
+    left: 755px;
+    align-items: flex-end;
+    width: 100%;
+    height: 50px;
 }
 
 .reject-button,
 .heart-button,
 .paw-button {
-border-radius: 20px;
-font-size: 60px;
-width: 110px;
-cursor: pointer;
-margin-right: 30px;
+    border-radius: 20px;
+    font-size: 60px;
+    width: 110px;
+    cursor: pointer;
+    margin-right: 30px;
+    background-color: #f2f2f2; /* Light gray */
+    color: #000; /* Black text color */
+}
+
+.reject-button:hover,
+.heart-button:hover,
+.paw-button:hover {
+    background-color: #c0c0c0; /* Slightly darker gray on hover */
+    color: #000000;
+}
+
+.add-dog-form {
+    position: fixed;
+    top: 130px;
+    right: 20px;
+    margin: 20px;
+}
+
+
+.toggle-button {
+    background-color: #0e172c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.toggle-button:hover {
+    background-color: #003366;
+    color: #ffffff;
+}
+
+.add-dog-container {
+    display: none;
+    justify-content: flex-start; /* Align items to the start (top) */
+    align-items: flex-end; /* Align items to the end (right) */
+    z-index: 1;
+    position: fixed;
+    top: 200px;
+    left: 150px;
+    width: 100%;
+    height: 100%;
+}
+
+.add-dog-form-inner {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    max-width: 80%;
+    position: relative; /* Relative positioning for absolute children */
+}
+
+.add-dog-form label {
+    margin: 10px 0;
+    font-size: 18px;
+    color: var(--color-text);
+}
+
+.add-dog-form input,
+.add-dog-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.add-dog-form input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.add-dog-form button {
+    margin: 10px 0;
+    padding: 15px;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: #0e172c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+
+.add-dog-buttons {
+    display: flex;
+  
+}
+
+.exit-button {
+    background-color: #0e172c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 12px;
+    position: absolute; /* Absolute positioning */
+    top: 507.5px; /* Adjust top spacing as needed */
+    right:30px; /* Adjust right spacing as needed */
 }
