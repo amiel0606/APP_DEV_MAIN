@@ -13,6 +13,7 @@ if (!isset($_SESSION["uID"])) {
             <li><a href="./includes/logout.php"><img class="logo-side" src="./image/logout.png">Logout</a></li>
         </ul>
     </div>
+
 <div class="right-panel">
 
     <div id="dog-container">
@@ -32,6 +33,7 @@ if (!isset($_SESSION["uID"])) {
     </div>
 
 
+
     <div id="dog-buttons">
         <button class="reject-button">&#10006;</button>
         <button id="change-image" class="heart-button">&#10084;</button>
@@ -44,10 +46,12 @@ if (!isset($_SESSION["uID"])) {
             <div class="add-dog-form-inner">
                 <!-- Added exit button here -->
                 <button onclick="toggleForm()" class="exit-button">Exit Form</button>
+
                 <form action="./includes/upload.php" method="POST" id="dogForm" enctype="multipart/form-data">
 
                     <label for="dogImage">Dog Image:</label>
                     <input type="file" name="dogImage">
+
 
                     <label for="dogName">Dog Name:</label>
                     <input type="text" name="dogName" required>
@@ -67,6 +71,7 @@ if (!isset($_SESSION["uID"])) {
                     <!-- Moved buttons to the right -->
                     <div class="add-dog-buttons">
                         <button type="submit" name="addDog">Add Dog</button>
+
                     </div>
                 </form>
             </div>
@@ -80,11 +85,13 @@ function toggleForm() {
     dogFormContainer.style.display = (dogFormContainer.style.display === "none" || dogFormContainer.style.display === "") ? "block" : "none";
 }
 
+
 $(document).ready(function() {
     $("#change-image").click(function() {
         $("#dog-card").load("./includes/accept.php");
     });
 });
+
 </script>
 
 <?php
