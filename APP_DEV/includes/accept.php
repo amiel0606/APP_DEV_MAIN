@@ -2,15 +2,17 @@
     include_once 'dbCon.php';
     session_start();
     $UserN = $_SESSION['username'];
-
-    $sql = "SELECT image FROM tbldogs WHERE username != '$UserN' ORDER BY RAND() LIMIT 1";
+    $sql = "SELECT * FROM tbldogs WHERE username != '$UserN' ORDER BY RAND() LIMIT 1";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            ?><img src="./uploads/<?php echo $row['image']?>"><?php
+            $sql_insert = "INSERT INTO tblfavorites (ownerUser, dogName, dogImage, dogBreed, dogAge, dogDescription, dogWeight) VALUES ('$UserN', '".$row['name']."', '".$row['image']."', '".$row['breed']."', '".$row['age']."', '".$row['description']."', '".$row['weight']."')";
+            if(mysqli_query($conn, $sql_insert)){
+                ?><img src="./uploads/<?php echo $row['image']?>"><?php
+            } else{
+                echo "ERROR: Could not able to execute $sql_insert. " . mysqli_error($conn);
+            }
         }
-    } else {
-        echo "0 results";
     }
 
 

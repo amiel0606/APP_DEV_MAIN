@@ -27,13 +27,13 @@
                     
                     <?php
                         if (isset($_SESSION["uID"])) {
-                            echo "<a href='#' class='nav-links openbtn' style='display:none;' onclick='openForm( )'>Sign Up</a>";
+                            echo "<a href='#' class='nav-links openbtn' style='display:none;' onclick='openForm( )'>Log in</a>";
                             echo "<a href='index.php#team' class='nav-links' style='display:none;'>About Us</a>";
                             echo "<a href='index.php#homer' class='nav-links' style='display:none;'>Home</a>";
 
                         }
                         else {
-                            echo "<a href='#' class='nav-links openbtn' onclick='openForm( )'>Sign Up</a>";
+                            echo "<a href='#' class='nav-links openbtn' onclick='openForm( )'>Log in</a>";
                             echo "<a href='index.php#homer' class='nav-links'>About</a>";
                             echo "<a href='index.php#homer' class='nav-links'>Home</a>";
                         }
