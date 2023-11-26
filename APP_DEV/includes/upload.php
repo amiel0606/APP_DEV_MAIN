@@ -17,7 +17,11 @@ if (isset($_POST['addDog'])) {
                 $newFileName = uniqid('', true).'.'.$fileActualExtension;
                 $fileDestination = '../uploads/'.$newFileName;
                 move_uploaded_file($fileTmpName, $fileDestination);
+<<<<<<< HEAD
                 $sql = "INSERT INTO tbldogs(username, name, breed, age, description, image) VALUES(?, ?, ?, ?, ?, ?)";
+=======
+                $sql = "INSERT INTO tbldogs(username, name, breed, age, description, weight, image) VALUES(?, ?, ?, ?, ?, ?, ?)";
+>>>>>>> a811da731042fcb0869f8ed30dc7c1274b7c9ed3
                 $stmt = mysqli_stmt_init($conn);
                 if (!mysqli_stmt_prepare($stmt, $sql)) {
                     echo '<script>alert("SQL Error");</script>';
@@ -32,7 +36,11 @@ if (isset($_POST['addDog'])) {
                 $dogWeight = $_POST['weight'];
                 $UserN = $_SESSION['username'];
 
+<<<<<<< HEAD
                 mysqli_stmt_bind_param($stmt, "ssssss", $UserN, $dogName, $dogBreed, $dogAge, $dogDescription, $newFileName);
+=======
+                mysqli_stmt_bind_param($stmt, "sssssss", $UserN, $dogName, $dogBreed, $dogAge, $dogDescription, $dogWeight, $newFileName);
+>>>>>>> a811da731042fcb0869f8ed30dc7c1274b7c9ed3
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
                 echo '<script>alert("Dog added successfully");</script>';
