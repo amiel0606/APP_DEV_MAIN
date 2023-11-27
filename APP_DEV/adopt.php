@@ -80,21 +80,19 @@ if (!isset($_SESSION["uID"])) {
 </div>
 
 <script>
-<<<<<<< Updated upstream
 
-    
     $(document).ready(function () {
         // Load the initial dog on page load
         loadDog();
-=======
+
 function toggleForm() {
     var dogFormContainer = document.getElementById("dogFormContainer");
     dogFormContainer.style.display = (dogFormContainer.style.display === "none" || dogFormContainer.style.display === "") ? "block" : "none";
 }
->>>>>>> Stashed changes
 
 
-<<<<<<< Updated upstream
+
+
         $(".exit-button").click(function () {
             $("#dogFormContainer").toggle();
         });
@@ -104,36 +102,77 @@ function toggleForm() {
         });
 
         $("#change-image").click(function () {
-            $.ajax({
-                type: 'POST',
-                url: './includes/accept.php',
-                data: { addToFavorite: true },
-                success: function (response) {
-                    if (response.trim() === "") {
-                        // No more dogs available, show default dog card
-                        $("#dog-card").html('<img src="./image/defaultDoggo.png" alt="Default Dog Image">' +
-                            '<div class="dog-card__content">' +
-                            '<p class="dog-card__title">No Dog Available</p>' +
-                            '<p class="dog-card__description">Check back later to find more buddies!</p>' +
-                            '</div>');
-                    } else {
-                        // Dog added to favorites, show popup
-                        showPopup("Dog Added to Favorites");
-                        // Handle the response if needed
-                        console.log(response);
-                        loadDog();
-                    }
-                },
-                error: function () {
-                    alert('Error adding dog to favorites.');
-                }
-            });
+            var currentDogID = $("#dog-card img").data("dogid");
+
+            // Check if the dog is already in favorites
+            var isInFavorites = checkIfInFavorites(currentDogID);
+
+            if (isInFavorites) {
+                removeDogFromFavorites(currentDogID);
+            } else {
+                addToFavorites();
+            }
         });
 
         $(".paw-button").click(function () {
-        window.location.href = 'message.php';
+            window.location.href = 'message.php';
+        });
     });
-    });
+
+    function addToFavorites() {
+        $.ajax({
+            type: 'POST',
+            url: './includes/accept.php',
+            data: { addToFavorite: true },
+            success: function (response) {
+                if (response.trim() === "") {
+                    // No more dogs available, show default dog card
+                    $("#dog-card").html('<img src="./image/defaultDoggo.png" alt="Default Dog Image">' +
+                        '<div class="dog-card__content">' +
+                        '<p class="dog-card__title">No Dog Available</p>' +
+                        '<p class="dog-card__description">Check back later to find more buddies!</p>' +
+                        '</div>');
+                } else {
+                    // Dog added to favorites, show popup
+                    showPopup("Dog Added to Favorites");
+                    // Handle the response if needed
+                    console.log(response);
+                    loadDog(); // Load the next dog
+                }
+            },
+            error: function () {
+                alert('Error adding dog to favorites.');
+            }
+        });
+    }
+
+    function removeDogFromFavorites(dogID) {
+        $.ajax({
+            type: 'POST',
+            url: './includes/removeFromFavorites.php',
+            data: { removeFromFavorites: true, dogID: dogID },
+            success: function (response) {
+                // Dog removed from favorites, show popup
+                showPopup("Dog Removed from Favorites");
+                // Handle the response if needed
+                console.log(response);
+                loadDog(); // Load the next dog
+            },
+            error: function () {
+                alert('Error removing dog from favorites.');
+            }
+        });
+    }
+
+    function checkIfInFavorites(dogID) {
+        // Check if the current dog is in favorites
+        // You may need to modify this part based on your actual implementation
+        var isInFavorites = false;
+        // Perform an AJAX call or use other methods to check if the dog is in favorites
+        // Set isInFavorites to true or false based on the result
+
+        return isInFavorites;
+    }
 
     function loadDog() {
         $.ajax({
@@ -147,7 +186,6 @@ function toggleForm() {
             }
         });
     }
-
 
     function rejectDog() {
         var currentDogID = $("#dog-card img").data("dogid");
@@ -179,21 +217,9 @@ function toggleForm() {
 </script>
 
 
+
     <?php
     include_once('./includes/footer.php');
     ?>
-</body>
-</html>
-=======
-$(document).ready(function() {
-    $("#change-image").click(function() {
-        $("#dog-card").load("./includes/accept.php");
-    });
-});
 
-</script>
 
-<?php
-include_once('./includes/footer.php');
-?>
->>>>>>> Stashed changes
