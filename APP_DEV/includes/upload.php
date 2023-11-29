@@ -17,11 +17,7 @@ if (isset($_POST['addDog'])) {
                 $newFileName = uniqid('', true).'.'.$fileActualExtension;
                 $fileDestination = '../uploads/'.$newFileName;
                 move_uploaded_file($fileTmpName, $fileDestination);
-<<<<<<< Updated upstream
                 $sql = "INSERT INTO tbldogs(username, name, breed, age, description, weight, image) VALUES(?, ?, ?, ?, ?, ?, ?)";
-=======
-                $sql = "INSERT INTO tbldogs(username, name, breed, age, description, image) VALUES(?, ?, ?, ?, ?, ?)";
->>>>>>> Stashed changes
                 $stmt = mysqli_stmt_init($conn);
                 if (!mysqli_stmt_prepare($stmt, $sql)) {
                     echo '<script>alert("SQL Error");</script>';
@@ -36,11 +32,7 @@ if (isset($_POST['addDog'])) {
                 $dogWeight = $_POST['weight'];
                 $UserN = $_SESSION['username'];
 
-<<<<<<< Updated upstream
                 mysqli_stmt_bind_param($stmt, "sssssss", $UserN, $dogName, $dogBreed, $dogAge, $dogDescription, $dogWeight, $newFileName);
-=======
-                mysqli_stmt_bind_param($stmt, "ssssss", $UserN, $dogName, $dogBreed, $dogAge, $dogDescription, $newFileName);
->>>>>>> Stashed changes
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
                 echo '<script>alert("Dog added successfully");</script>';

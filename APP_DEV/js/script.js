@@ -7,6 +7,7 @@ function preventScroll(e){
 }
 
 function openForm() {
+    showLogInForm();
     document.getElementById("myOverlay").style.display="block";
     document.getElementById("myOverlay").addEventListener('wheel', preventScroll);
 }
