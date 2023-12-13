@@ -174,19 +174,12 @@ input {
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.up-for-adoption .card:hover .card__content {
-    transform: rotateX(0deg);
-}
 
 .up-for-adoption .card__title {
     margin: 0;
     font-size: 24px;
     color: #333;
     font-weight: 700;
-}
-
-.up-for-adoption .card:hover img {
-    scale: 0;
 }
 
 .up-for-adoption .card__description {
