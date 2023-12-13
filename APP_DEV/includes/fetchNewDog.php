@@ -1,12 +1,14 @@
 <?php
 session_start();
 include_once 'dbCon.php';
+
 $UserN = $_SESSION['username'];
 $favorites = isset($_SESSION['favorites']) ? $_SESSION['favorites'] : array();
 $favorites_str = implode(',', $favorites);
 $sql = "SELECT * FROM tbldogs 
         WHERE username != ? 
         AND dogID NOT IN ($favorites_str) 
+
         ORDER BY RAND() LIMIT 1";
 
 $stmt = $conn->prepare($sql);

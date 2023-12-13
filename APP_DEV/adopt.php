@@ -10,15 +10,6 @@ if (!isset($_SESSION["uID"])) {
 
 ?>
 
-    <div id="left-panel">
-        <ul>
-            <li><a href="welcome.php"> <img class="logo-side" src="./image/account.png">Profile</a></li>
-            <li><a href="adopt.php"><img class="logo-side" src="./image/dog.png">Adopt</a></li>
-            <li><a href="message.php"><img class="logo-side" src="./image/email.png">Messages</a></li>
-            <li><a href="./includes/logout.php"><img class="logo-side" src="./image/logout.png">Logout</a></li>
-        </ul>
-    </div>
-
     <div class="right-panel">
         <div id="dog-container">
             <div id="dog-card">
@@ -38,10 +29,11 @@ if (!isset($_SESSION["uID"])) {
         </div>
 
         <div class="add-dog-form">
-        <button class="toggle-button">Add Dog for Adoption</button>
+
+        <button onclick="toggleForm()" class="toggle-button">Add Dog for Adoption</button>
         <div class="add-dog-container" id="dogFormContainer">
             <div class="add-dog-form-inner">
-            <button class="exit-button">Exit Form</button>
+            <button onclick="toggleForm()" class="exit-button">Exit Form</button>
 
                 <form action="./includes/upload.php" method="POST" id="dogForm" enctype="multipart/form-data">
 
@@ -69,6 +61,7 @@ if (!isset($_SESSION["uID"])) {
                     <!-- Moved buttons to the right -->
                     <div class="add-dog-buttons">
                         <button type="submit" name="addDog">Add Dog</button>
+
                     </div>
                 </form>
 
@@ -101,6 +94,7 @@ if (!isset($_SESSION["uID"])) {
         });
 
         $("#change-image").click(function () {
+
             var dogID = $("#dog-card img").data("dogid"); 
             $.ajax({
                 type: 'POST',
@@ -119,6 +113,7 @@ if (!isset($_SESSION["uID"])) {
                     '</div>');
             } else {
                 showPopup("Dog Added to Favorites");
+
                 // Fetch new dog after current dog is added to favorites
                 $.ajax({
                 type: 'POST',
@@ -131,6 +126,7 @@ if (!isset($_SESSION["uID"])) {
                 }
             });
 
+
             }
         },
         error: function () {
@@ -138,8 +134,6 @@ if (!isset($_SESSION["uID"])) {
         }
     });
 });
-
-
 
         $(".paw-button").click(function () {
         window.location.href = 'message.php';

@@ -32,11 +32,16 @@
                             echo "<a href='#' class='nav-links openbtn' style='display:none;' onclick='openForm( )'>Log in</a>";
                             echo "<a href='index.php#team' class='nav-links' style='display:none;'>About Us</a>";
                             echo "<a href='index.php#homer' class='nav-links' style='display:none;'>Home</a>";
+                            echo "<a href='./includes/logout.php'> <img class='logo-top' src='./image/logo/logout.png'></a>";
+                            echo "<a href='message.php#'> <img class='logo-top' src='./image/logo/message.png'></a>";
+                            echo "<a href='adopt.php#'> <img class='logo-top' src='./image/logo/adopt.png'></a>";
+                            echo "<a href='welcome.php#'> <img class='logo-top' src='./image/logo/profile.png'></a>";
 
                         }
                         else {
                             echo "<a href='#' class='nav-links openbtn' onclick='openForm( )'>Log in</a>";
-                            echo "<a href='index.php#homer' class='nav-links'>About</a>";
+                            echo "<a href='index.php#team' class='nav-links'>About</a>";
+
                             echo "<a href='index.php#homer' class='nav-links'>Home</a>";
                         }
                     ?>
