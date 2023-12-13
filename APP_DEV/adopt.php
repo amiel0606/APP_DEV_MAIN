@@ -77,7 +77,7 @@ if (!isset($_SESSION["uID"])) {
     <p id="popup-message"></p>
     <p id="popup-close"></p>
 </div>
- 
+
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
 
@@ -99,29 +99,42 @@ if (!isset($_SESSION["uID"])) {
         });
 
         $("#change-image").click(function () {
-            $.ajax({
-                type: 'POST',
-                url: './includes/accept.php',
-                data: { addToFavorite: true },
-                success: function (response) {
-                    if (response.trim() === "") {
-                        // No more dogs available, show default dog card
-                        $("#dog-card").html('<img src="./image/defaultDoggo.png" alt="Default Dog Image">' +
-                            '<div class="dog-card__content">' +
-                            '<p class="dog-card__title">No Dog Available</p>' +
-                            '<p class="dog-card__description">Check back later to find more buddies!</p>' +
-                            '</div>');
-                    } else {
-                        showPopup("Dog Added to Favorites");
-                        // Handle the response if needed
-                        console.log(response);
+    var dogID = $("#dog-card img").data("dogid"); 
+    $.ajax({
+        type: 'POST',
+        url: './includes/addToFavorites.php',
+        data: { 
+            addToFavorite: true,
+            dogID: dogID
+        },
+        success: function (response) {
+            if (response.trim() === "") {
+                // No more dogs available, show default dog card
+                $("#dog-card").html('<img src="./image/defaultDoggo.png" alt="Default Dog Image">' +
+                    '<div class="dog-card__content">' +
+                    '<p class="dog-card__title">No Dog Available</p>' +
+                    '<p class="dog-card__description">Check back later to find more buddies!</p>' +
+                    '</div>');
+            } else {
+                showPopup("Dog Added to Favorites");
+                $.ajax({
+                    type: 'POST',
+                    url: './includes/fetchNewDog.php',
+                    success: function (newDogResponse) {
+                        $("#dog-card").html(newDogResponse);
+                    },
+                    error: function () {
+                        alert('Error fetching new dog image.');
                     }
-                },
-                error: function () {
-                    alert('Error adding dog to favorites.');
-                }
-            });
-        });
+                });
+            }
+        },
+        error: function () {
+            alert('Error adding dog to favorites.');
+        }
+    });
+});
+
 
         $(".paw-button").click(function () {
         window.location.href = 'message.php';

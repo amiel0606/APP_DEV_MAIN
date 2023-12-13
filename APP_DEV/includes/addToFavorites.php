@@ -1,27 +1,42 @@
 <?php
-include_once 'dbCon.php';
 session_start();
-
+include_once 'dbCon.php';
 if (isset($_POST['addToFavorite'])) {
     $UserN = $_SESSION['username'];
-
-    // Get the last added dog to tbldogs
-    $lastDogQuery = "SELECT * FROM tbldogs WHERE username = '$UserN' ORDER BY dogID DESC LIMIT 1";
-    $lastDogResult = mysqli_query($conn, $lastDogQuery);
-
-    if (mysqli_num_rows($lastDogResult) > 0) {
-        $lastDog = mysqli_fetch_assoc($lastDogResult);
-
-        // Insert the last added dog into tblfavorites
-        $sql_insert = "INSERT INTO tblfavorites (ownerUser, dogID, dogName, dogImage, dogBreed, dogAge, dogDescription, dogWeight) 
-                       VALUES ('$UserN', ".$lastDog['dogID'].", '".$lastDog['name']."', '".$lastDog['image']."', '".$lastDog['breed']."', '".$lastDog['age']."', '".$lastDog['description']."', '".$lastDog['weight']."')";
-        if(mysqli_query($conn, $sql_insert)){
+    $dogID = $_POST['dogID'];
+    // Get the dog with the given dogID
+    $dogQuery = "SELECT * FROM tbldogs WHERE dogID = '$dogID'";
+    $dogResult = mysqli_query($conn, $dogQuery);
+    if (mysqli_num_rows($dogResult) > 0) {
+        $dog = mysqli_fetch_assoc($dogResult);
+        // Insert the dog into tblfavorites
+        $sql_insert = "INSERT INTO tblfavorites (ownerUser, dogID, dogName, dogImage, dogBreed, dogAge, dogDescription, dogWeight, uploader) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmtInsert = $conn->prepare($sql_insert);
+        $stmtInsert->bind_param(
+        "sisssssss",
+        $UserN,
+        $dog['dogID'],
+        $dog['name'],
+        $dog['image'],
+        $dog['breed'],
+        $dog['age'],
+        $dog['description'],
+        $dog['weight'],
+        $dog['username']);
+        if ($stmtInsert->execute()) {
             echo "Dog added to favorites successfully!";
         } else {
-            echo "ERROR: Could not able to execute $sql_insert. " . mysqli_error($conn);
+            echo "ERROR: Could not able to execute $sql_insert. " . $stmtInsert->error;
         }
     } else {
         echo "No dog found in tbldogs.";
     }
-}
-?>
+    $stmtInsert->close();
+    } else {
+        // No more eligible dogs found
+        echo "";
+    }
+
+
+

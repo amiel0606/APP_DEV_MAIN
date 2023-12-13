@@ -1,17 +1,17 @@
 <?php
+session_start();
 include_once 'dbCon.php';
 
-session_start();
-$user = $_SESSION['username'];
+$UserN = $_SESSION['username'];
 
-$sql = "SELECT dogID, image, name, breed, age, weight, description FROM tbldogs 
+// Select a random dog that is not in tblfavorites and not added by the current user
+$sql = "SELECT * FROM tbldogs 
         WHERE username != ? 
-        AND dogID NOT IN (SELECT dogID FROM tblrejecteddogs WHERE username = ?) 
-        AND dogID NOT IN (SELECT dogID FROM tblfavorites WHERE ownerUser = ?) 
+        AND dogID NOT IN (SELECT dogID FROM tblfavorites) 
         ORDER BY RAND() LIMIT 1";
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("sss", $user, $user, $user);
+$stmt->bind_param("s", $UserN);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -38,5 +38,5 @@ if ($row = $result->fetch_assoc()) {
 
     echo $response;
 }
+
 $stmt->close();
-?>

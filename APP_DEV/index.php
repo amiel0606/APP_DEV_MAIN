@@ -2,7 +2,8 @@
     include_once('./includes/header.php');
 ?>
         <img src="./image/dog_bgg.png" id="dog_bgg"> 
-        <div class="tagline"> <h2 class="tags">Fur-Ever Buddies: Find Your Furry Soulmate</h2> </div>
+        <div class="tagline"> <h2 class="tags">Fur-Ever <br> Buddies: <br> Find <br>Your <br>Furry <br>Soulmate</h2>
+        </div>
 
         <div id="myOverlay" class="overlay"> 
                 <span onclick="closeForm()" class="closebtn" title="Close Overlay">&#10005;</span>
