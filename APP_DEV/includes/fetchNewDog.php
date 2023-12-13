@@ -1,13 +1,12 @@
 <?php
 session_start();
 include_once 'dbCon.php';
-
 $UserN = $_SESSION['username'];
-
-// Select a random dog that is not in tblfavorites and not added by the current user
+$favorites = isset($_SESSION['favorites']) ? $_SESSION['favorites'] : array();
+$favorites_str = implode(',', $favorites);
 $sql = "SELECT * FROM tbldogs 
         WHERE username != ? 
-        AND dogID NOT IN (SELECT dogID FROM tblfavorites) 
+        AND dogID NOT IN ($favorites_str) 
         ORDER BY RAND() LIMIT 1";
 
 $stmt = $conn->prepare($sql);
@@ -16,7 +15,6 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 if ($row = $result->fetch_assoc()) {
-    // Dog available
     $response = '<img src="./uploads/' . $row['image'] . '" data-dogid="' . $row['dogID'] . '">';
     $response .= '<div class="dog-card__content">';
     $response .= '<p class="dog-card__title">Name: ' . $row['name'] . '</p><br>';
@@ -29,13 +27,11 @@ if ($row = $result->fetch_assoc()) {
 
     echo $response;
 } else {
-    // No more dogs available, return default dog card
     $response = '<img src="./image/defaultDoggo.png" alt="Default Dog Image">';
     $response .= '<div class="dog-card__content">';
     $response .= '<p class="dog-card__title">No Dog Available</p>';
     $response .= '<p class="dog-card__description">Check back later for more dogs!</p>';
     $response .= '</div>';
-
     echo $response;
 }
 

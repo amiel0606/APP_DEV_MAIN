@@ -39,4 +39,4 @@ if ($row = $result->fetch_assoc()) {
     echo $response;
 }
 $stmt->close();
-?>
+
