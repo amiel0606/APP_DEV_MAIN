@@ -4,12 +4,11 @@ include_once 'dbCon.php';
 if (isset($_POST['addToFavorite'])) {
     $UserN = $_SESSION['username'];
     $dogID = $_POST['dogID'];
-    // Get the dog with the given dogID
+
     $dogQuery = "SELECT * FROM tbldogs WHERE dogID = '$dogID'";
     $dogResult = mysqli_query($conn, $dogQuery);
     if (mysqli_num_rows($dogResult) > 0) {
         $dog = mysqli_fetch_assoc($dogResult);
-        // Insert the dog into tblfavorites
         $sql_insert = "INSERT INTO tblfavorites (ownerUser, dogID, dogName, dogImage, dogBreed, dogAge, dogDescription, dogWeight, uploader) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmtInsert = $conn->prepare($sql_insert);
@@ -26,6 +25,8 @@ if (isset($_POST['addToFavorite'])) {
         $dog['username']);
         if ($stmtInsert->execute()) {
             echo "Dog added to favorites successfully!";
+
+            $_SESSION['favorites'][] = $dog['dogID'];
         } else {
             echo "ERROR: Could not able to execute $sql_insert. " . $stmtInsert->error;
         }
@@ -33,10 +34,7 @@ if (isset($_POST['addToFavorite'])) {
         echo "No dog found in tbldogs.";
     }
     $stmtInsert->close();
-    } else {
-        // No more eligible dogs found
-        echo "";
-    }
 
-
-
+} else {
+    echo "";
+}

@@ -12,7 +12,7 @@ if (!isset($_SESSION["uID"])) {
         <?php
 include_once './includes/dbCon.php';
 $UserN = $_SESSION['username'];
-$sql = "SELECT f.dogName, f.dogImage, f.dogBreed, f.dogAge, f.dogDescription, f.dogWeight FROM tblfavorites f WHERE f.ownerUser = ?";
+$sql = "SELECT f.dogName, f.dogImage, f.dogBreed, f.dogAge, f.dogDescription, f.dogWeight FROM tblfavorites f WHERE f.ownerUser = ? ORDER BY f.timestamp ASC";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $UserN);
 $stmt->execute();

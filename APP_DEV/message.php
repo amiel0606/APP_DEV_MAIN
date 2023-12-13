@@ -1,6 +1,6 @@
-<?php
-include_once('./includes/header.php');
 
+<?php 
+include_once('./includes/header.php');
 if (!isset($_SESSION["uID"])) {
     header("location: ./index.php?error=UserLoggedOut");
     exit();
@@ -39,10 +39,12 @@ if (!isset($_SESSION["uID"])) {
         </button>
     </div>
 </div>
+
 <!-- END OF MESSAGING WINDOW -->
 
 <!-- JAVASCRIPT FOR THIS PAGE -->
 <script>
+
     function handleClick(ownerUserDiv) {
         var ownerUser = ownerUserDiv.getAttribute('data-owneruser');
 
@@ -70,6 +72,7 @@ if (!isset($_SESSION["uID"])) {
             rectangleConvoDiv.appendChild(messageDiv);
         }
     }
+
 </script>
 <!-- END OF JAVASCRIPT FOR THIS PAGE -->
 <?php

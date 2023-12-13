@@ -29,6 +29,7 @@ if (!isset($_SESSION["uID"])) {
         </div>
 
         <div class="add-dog-form">
+
         <button onclick="toggleForm()" class="toggle-button">Add Dog for Adoption</button>
         <div class="add-dog-container" id="dogFormContainer">
             <div class="add-dog-form-inner">
@@ -39,6 +40,8 @@ if (!isset($_SESSION["uID"])) {
                     <label for="dogImage">Dog Image:</label>
                     <input type="file" name="dogImage">
 
+                    <label for="profPic">Your Profile Picture</label>
+                    <input type="file" name="profilePicture">
 
                     <label for="dogName">Dog Name:</label>
                     <input type="text" name="dogName" required>
@@ -61,6 +64,7 @@ if (!isset($_SESSION["uID"])) {
 
                     </div>
                 </form>
+
             </div>
         </div>
     </div>
@@ -90,14 +94,15 @@ if (!isset($_SESSION["uID"])) {
         });
 
         $("#change-image").click(function () {
-    var dogID = $("#dog-card img").data("dogid"); 
-    $.ajax({
-        type: 'POST',
-        url: './includes/addToFavorites.php',
-        data: { 
-            addToFavorite: true,
-            dogID: dogID
-        },
+
+            var dogID = $("#dog-card img").data("dogid"); 
+            $.ajax({
+                type: 'POST',
+                url: './includes/addToFavorites.php',
+                data: { 
+                    addToFavorite: true,
+                    dogID: dogID
+                },
         success: function (response) {
             if (response.trim() === "") {
                 // No more dogs available, show default dog card
@@ -108,16 +113,20 @@ if (!isset($_SESSION["uID"])) {
                     '</div>');
             } else {
                 showPopup("Dog Added to Favorites");
+
+                // Fetch new dog after current dog is added to favorites
                 $.ajax({
-                    type: 'POST',
-                    url: './includes/fetchNewDog.php',
-                    success: function (newDogResponse) {
-                        $("#dog-card").html(newDogResponse);
-                    },
-                    error: function () {
-                        alert('Error fetching new dog image.');
-                    }
-                });
+                type: 'POST',
+                url: './includes/fetchNewDog.php?' + new Date().getTime(), // Add timestamp to URL
+                success: function (newDogResponse) {
+                    $("#dog-card").html(newDogResponse);
+                },
+                error: function () {
+                    alert('Error fetching new dog image.');
+                }
+            });
+
+
             }
         },
         error: function () {
@@ -125,7 +134,6 @@ if (!isset($_SESSION["uID"])) {
         }
     });
 });
-
 
         $(".paw-button").click(function () {
         window.location.href = 'message.php';

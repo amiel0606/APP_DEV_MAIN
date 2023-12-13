@@ -16,6 +16,7 @@ body {
     background-color: #FED9ED;
     overflow-x: hidden;
 }
+
 .logo-top {
     display: flex;
     align-items: center;
@@ -24,9 +25,22 @@ body {
 }
 .bg {
     background-color: #FED9ED;
+
     height: 100% ;
     max-width: 1920px;
     position: absolute;
+	align-items: center;
+	justify-content: center;
+}
+
+.nav{
+	position: fixed;
+	left: 0px;
+	z-index: 10000;
+}
+
+.nav-link{
+	background-color: #fec7d7;
 }
 
 .nav{
