@@ -51,15 +51,16 @@ input {
     height: 100%;
     width: 100%;
     position: fixed;
-    display:block;
+    display: block;
     z-index: 1;
     top: 0px;
     left: 0px;
     background: rgba(0,0,0,0.68);
+    z-index: 20000;
 }
 
 .myOverlay{
-    display: none;
+    display: block;
     position: fixed;
     justify-content: center;
     align-items: center;
@@ -74,6 +75,13 @@ input {
     cursor: pointer;
     color: var(--color-text);
 }
+
+.favorites {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
 
 .wrap p a{
     text-align: center;
@@ -102,4 +110,88 @@ input {
     display: block;
     opacity: 1;
     transform: translateX(-400px);
+}
+
+.up-for-adoption {
+    margin-top: 40px;
+    display: flex;
+    height: auto;
+    width: auto;
+    margin-left: 200px;
+}
+
+.up-for-adoption h2 {
+    margin-right: 40px;
+}
+
+.up-for-adoption img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.up-for-adoption .card {
+    margin-top: 100px;
+    position: relative;
+    width: 330px;
+    height: 420px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    display: flex;
+    margin-right: 20px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    perspective: 1000px;
+    box-shadow: 0 0 0 5px #ffffff80;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    left: -310px;
+}
+
+.up-for-adoption .card img {
+    width: 330px;
+    height: 420px;
+    fill: #333;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.up-for-adoption .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+}
+
+.up-for-adoption .card__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f2f2f2;
+    transform: rotateX(-90deg);
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.up-for-adoption .card:hover .card__content {
+    transform: rotateX(0deg);
+}
+
+.up-for-adoption .card__title {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+    font-weight: 700;
+}
+
+.up-for-adoption .card:hover img {
+    scale: 0;
+}
+
+.up-for-adoption .card__description {
+    margin: 10px 0 0;
+    font-size: 14px;
+    color: #777;
+    line-height: 1.4;
 }

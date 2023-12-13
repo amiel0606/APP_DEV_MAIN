@@ -2,7 +2,8 @@
     include_once('./includes/header.php');
 ?>
         <img src="./image/dog_bgg.png" id="dog_bgg"> 
-        <div class="tagline"> <h2 class="tags">Fur-Ever Buddies: Find Your Furry Soulmate</h2> </div>
+        <div class="tagline"> <h2 class="tags">Fur-Ever <br> Buddies: <br> Find <br>Your <br>Furry <br>Soulmate</h2>
+        </div>
 
         <div id="myOverlay" class="overlay"> 
                 <span onclick="closeForm()" class="closebtn" title="Close Overlay">&#10005;</span>
@@ -41,6 +42,41 @@
                             }
                             elseif ($_GET["error"] == "none") {
                                 echo '<p class = "errors">Successfully registered! </br>  Please log in to continue.</p>';
+                            }
+                            elseif ($_GET["error"] == "UserLoggedOut") {
+                                echo '<p class = "errors">Please Log in or Create an account. </p>';
+                            }
+                        }
+                    ?>
+                </div>
+                <div class="wrap" id="loginWrap" style="display: none;" style= "opacity: 0;">
+                        <div class="form-box signup">
+                            <h2>Log In</h2>
+                            <form action="./includes/login.php" method="post">
+                                <input name="UserName" type="text" placeholder="Username">
+                                <input name="password" type="password" placeholder="Password">
+                                <input name="submit" type="submit"value="Log In"></input>
+                            </form>
+                            <div class="login-register">
+                                <p>Don't have an account yet? <a href="javascript:void(0);" onclick="showSignUpForm()">Click Here</a></p>
+                            </div>
+                        </div>
+                        <?php
+                        if (isset($_GET["error"])) {
+                            if ($_GET["error"] == "EmptyInput") {
+                                echo '<p class = "errors">Fill in all fields!</p>';
+                            }
+                            else if ($_GET["error"] == "WrongLogin") {
+                                echo '<p class = "errors">Invalid Username or Password</p>';
+                            }
+                            else if ($_GET["error"] == "stmtFailed") {
+                                echo '<p class = "errors">Something went wrong, </br> please try again later.</p>';
+                            }
+                            elseif ($_GET["error"] == "none") {
+                                echo '<p class = "errors">Successfully registered! </br>  Please log in to continue.</p>';
+                            }
+                            elseif ($_GET["error"] == "UserLoggedOut") {
+                                echo '<p class = "errors">Please Log in or Create an account. </p>';
                             }
                         }
                     ?>
@@ -123,44 +159,6 @@
         </div>
         <img src="./image/noslen.png" id="nelson" /> 
     </div>
-<!-- Code injected by live-server -->
-<script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
-</script>
 <?php
 include_once('./includes/footer.php');
 ?>
