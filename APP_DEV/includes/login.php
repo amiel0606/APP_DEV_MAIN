@@ -8,7 +8,7 @@ if (isset($_POST["submit"])) {
     require_once('dbCon.php');
 
     if (emptyInputLogin($uName,$pwd) !== false) {
-        header("location: ../log_in.php?error=EmptyInput");
+        header("location: ../index.php?error=EmptyInput");
         exit();
     }
 
