@@ -186,7 +186,7 @@ if (!isset($_SESSION["uID"])) {
     function loadDog() {
     $.ajax({
         type: 'GET',
-        url: './includes/fetchNewDog.php',
+        url: './includes/getDog.php',
         success: function (response) {
             $("#dog-card").html(response);
         },
