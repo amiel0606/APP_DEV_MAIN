@@ -51,7 +51,7 @@ input {
     height: 100%;
     width: 100%;
     position: fixed;
-    display: none;
+    display: block;
     z-index: 1;
     top: 0px;
     left: 0px;
@@ -75,6 +75,13 @@ input {
     cursor: pointer;
     color: var(--color-text);
 }
+
+.favorites {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
 
 .wrap p a{
     text-align: center;

@@ -1,7 +1,7 @@
 <?php
 include_once('./includes/header.php');
 if (!isset($_SESSION["uID"])) {
-    header("location: ./index.php?UserLoggedOut");
+    header("location: ./index.php?error=UserLoggedOut");
     exit();
 }
 ?>
@@ -19,35 +19,36 @@ if (!isset($_SESSION["uID"])) {
     <div class="favorites">
         <h2 class="faves">Favorites</h2>
         <?php
-        include_once './includes/dbCon.php';
-        $UserN = $_SESSION['username'];
-        $sql = "SELECT f.dogName, f.dogImage, f.dogBreed, f.dogAge, f.dogDescription, f.dogWeight FROM tblfavorites f WHERE f.ownerUser = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $UserN);
-        $stmt->execute();
-        $result = $stmt->get_result();
+include_once './includes/dbCon.php';
+$UserN = $_SESSION['username'];
+$sql = "SELECT f.dogName, f.dogImage, f.dogBreed, f.dogAge, f.dogDescription, f.dogWeight FROM tblfavorites f WHERE f.ownerUser = ? ORDER BY f.timestamp ASC";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $UserN);
+$stmt->execute();
+$result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                ?>
-                <div class="card">
-                    <img src="./uploads/<?php echo $row['dogImage']; ?>">
-                    <div class="card__content">
-                        <p class="card__title">Name: <?php echo $row['dogName']; ?></p><br>
-                        <p class="card__description">Breed: <?php echo $row['dogBreed']; ?></p><br>
-                        <p class="card__description">Age: <?php echo $row['dogAge']; ?></p><br>
-                        <p class="card__description">Weight: <?php echo $row['dogWeight']; ?> kg</p><br>
-                        <p class="card__description">Other Description: <?php echo $row['dogDescription']; ?></p>
-                    </div>
-                </div>
-                <?php
-            }
-        } else {
-            echo "No favorites yet, go to the Adopt page to find your fur-ever buddy!";
-        }
-
-        $stmt->close();
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
         ?>
+        <div class="card">
+            <img src="./uploads/<?php echo $row['dogImage']; ?>">
+            <div class="card__content">
+                <p class="card__title">Name: <?php echo $row['dogName']; ?></p><br>
+                <p class="card__description">Breed: <?php echo $row['dogBreed']; ?></p><br>
+                <p class="card__description">Age: <?php echo $row['dogAge']; ?></p><br>
+                <p class="card__description">Weight: <?php echo $row['dogWeight']; ?> kg</p><br>
+                <p class="card__description">Other Description: <?php echo $row['dogDescription']; ?></p>
+            </div>
+        </div>
+        <?php
+    }
+} else {
+    echo "No favorites yet, go to the Adopt page to find your fur-ever buddy!";
+}
+$stmt->close();
+?>
+
+
     </div>
     <div class="up-for-adoption">
         <h2 class="up-for-adoption-title">Up For Adoption</h2>

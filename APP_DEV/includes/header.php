@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="./css/welcome.css">
     <link rel = "icon" type = "image/png" href = "./image/logo.png">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/d3js/7.8.5/d3.min.js"></script>
     <link rel="stylesheet" href="./css/inside.css">
     <link rel="stylesheet" href="./css/adoptPage.css">  
     <link rel="stylesheet" href="./css/messageDesign.css">

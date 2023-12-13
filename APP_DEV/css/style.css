@@ -18,12 +18,8 @@ body {
 }
 .bg {
     background-color: #fec7d7;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    background-size: cover;
     height: 100% ;
-    max-width: 100%;
+    max-width: 1920px;
     position: absolute;
 }
 
@@ -99,6 +95,12 @@ body {
     text-align: center;
     top: 250px;
     left: 90px;
+}
+
+.tagline{
+	width: 100px;
+	max-width: 50px;
+	display: block;
 }
 
 #dog_bgg{
@@ -464,6 +466,6 @@ body {
 	color: var(--color-text);
 }
 
+@media (max-width: 1535px){
 
-
-
+}
