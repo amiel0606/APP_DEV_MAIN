@@ -54,4 +54,3 @@ if (isset($_POST['addToFavorite'])) {
 } else {
     echo "InvalidRequest";
 }
-?>

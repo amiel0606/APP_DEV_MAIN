@@ -16,6 +16,7 @@ $sql = "SELECT tbldogs.dogID, tbldogs.image, tbldogs.name, tbldogs.breed, tbldog
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("sss", $UserN, $UserN, $UserN);
+
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -23,6 +24,7 @@ if ($row = $result->fetch_assoc()) {
     // Dog available
     $response = '<img src="./uploads/' . $row['image'] . '" data-dogid="' . $row['dogID'] . '">';
     $response .= '<div class="dog-card__content">';
+
     
     // Display dog information
     $response .= '<p class="dog-card__title">Dog Name: ' . $row['name'] . '</p><br>';
@@ -70,4 +72,3 @@ if ($row = $result->fetch_assoc()) {
 }
 
 $stmt->close();
-?>

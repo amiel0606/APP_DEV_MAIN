@@ -106,4 +106,27 @@
     height: 30px;
     margin-top: 4px;
     margin-right: 5px;
-}       
+}
+
+.messages.sent {
+    text-align: right;
+    background-color: #caf0f8;
+    margin-left: 930px;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 20%;
+    height: auto;
+}
+
+.messages.received {
+    text-align: left;
+    background-color: #e0e7ff;
+    margin-right: 20%;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 20%;
+    height: auto;
+}
+

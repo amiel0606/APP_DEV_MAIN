@@ -10,14 +10,6 @@ if (!isset($_SESSION["uID"])) {
 
 ?>
 
-    <div id="left-panel">
-        <ul>
-            <li><a href="welcome.php"> <img class="logo-side" src="./image/account.png">Profile</a></li>
-            <li><a href="adopt.php"><img class="logo-side" src="./image/dog.png">Adopt</a></li>
-            <li><a href="message.php"><img class="logo-side" src="./image/email.png">Messages</a></li>
-            <li><a href="./includes/logout.php"><img class="logo-side" src="./image/logout.png">Logout</a></li>
-        </ul>
-    </div>
 
     <div class="right-panel">
 
@@ -97,7 +89,6 @@ if (!isset($_SESSION["uID"])) {
 
     
     $(document).ready(function () {
-        // Load the initial dog on page load
         loadDog();
 
         $(".toggle-button").click(function () {
@@ -128,6 +119,7 @@ if (!isset($_SESSION["uID"])) {
         },
         success: function (response) {
             console.log("addToFavorites.php response:", response);
+
 
             if (response.trim() === "DogAdded") {
                 // Dog added to favorites successfully, show the popup
@@ -261,7 +253,6 @@ function fetchNextDog() {
         $("#popup-container").fadeOut();
     });
 </script>
-
 
     <?php
     include_once('./includes/footer.php');

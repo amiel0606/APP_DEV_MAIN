@@ -7,6 +7,7 @@
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -74,6 +75,17 @@ CREATE TABLE `tblfavorites` (
 --
 
 INSERT INTO `tblfavorites` (`ownerUser`, `uploader`, `dogID`, `dogName`, `dogImage`, `dogBreed`, `dogAge`, `dogDescription`, `dogWeight`, `timestamp`) VALUES
+
+('amiel', 'admin', 682, 'Calcifer', '65746c6f624aa8.82463828.jpg', 'Beagle', '2 years old', 'Taba hahaha', '15', '2023-12-13 21:05:09'),
+('amiel', 'admin', 683, 'Icey', '65746cf0a6fb63.85080693.jpg', 'Shih Tzu', '', 'Cute', '4', '2023-12-13 19:06:52'),
+('amiel', 'admin', 684, 'Jacob', '65746d150c1f47.95767175.jpg', 'Husky', '', 'Laruan', '3kg', '2023-12-13 19:21:00'),
+('amiel', 'admin', 685, 'AWda', '657487e48adff3.97499691.jpg', 'aawd', '', 'awd', '3', '2023-12-13 21:05:12'),
+('amiel', 'admin', 687, 'awdas', '657488092aaff9.75478145.jpg', 'ada', 'a', '', 'awdaw', '2023-12-13 19:20:57'),
+('hArt06', 'admin', 682, 'Calcifer', '65746c6f624aa8.82463828.jpg', 'Beagle', '2 years old', 'Taba hahaha', '15', '2023-12-13 21:06:02'),
+('hArt06', 'admin', 685, 'AWda', '657487e48adff3.97499691.jpg', 'aawd', '', 'awd', '3', '2023-12-13 21:06:00'),
+('hArt06', 'admin', 686, 'adwd', '657487ffd5b665.05157221.jpg', 'awd', '', 'awd', '3', '2023-12-13 21:06:03'),
+('hArt06', 'admin', 687, 'awdas', '657488092aaff9.75478145.jpg', 'ada', 'a', '', 'awdaw', '2023-12-13 21:06:08'),
+('hArt06', 'amiel', 688, 'Igit', '6575ad61be0484.06970347.jpg', 'ASpin', '2', '', '4', '2023-12-13 20:41:49');
 ('Renz', 'Ferrer1515', 689, 'Ice', '657aaaebd6d877.16696003.jpg', 'Shih Tzu', '3 years', 'likes treats', '4', '2023-12-14 08:58:20'),
 ('Renz', 'Ferrer1515', 690, 'Miki', '657aab0822a4c4.96275313.jpg', 'Aspin', '2 years', 'dog', '5', '2023-12-14 08:58:42'),
 ('Renz', 'Ferrer1515', 691, 'Goldy', '657aab2eaa5893.11095398.jpg', 'Golden Retriever', '5 years', 'big boi', '15', '2023-12-14 08:58:25');
@@ -102,6 +114,34 @@ INSERT INTO `tblmessages` (`Mid`, `sender`, `receiver`, `message`, `received`, `
 (1, 'sender', 'receiver', 'hello testing', '0', '0', '2023-12-10 15:13:47'),
 (5, 'admin', 'receiver', 'heee', '0', '0', '2023-12-10 17:08:37');
 
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblmessages`
+--
+
+CREATE TABLE `tblmessages` (
+  `Mid` int(255) NOT NULL,
+  `sender` varchar(3000) NOT NULL,
+  `receiver` varchar(3000) NOT NULL,
+  `message` text NOT NULL,
+  `received` varchar(255) NOT NULL,
+  `seen` varchar(255) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+
+-- Dumping data for table `tblmessages`
+--
+
+INSERT INTO `tblmessages` (`Mid`, `sender`, `receiver`, `message`, `received`, `seen`, `timestamp`) VALUES
+(1, 'sender', 'receiver', 'hello testing', '0', '0', '2023-12-10 15:13:47'),
+(5, 'admin', 'receiver', 'heee', '0', '0', '2023-12-10 17:08:37');
+
 -- --------------------------------------------------------
 
 --
@@ -111,11 +151,7 @@ INSERT INTO `tblmessages` (`Mid`, `sender`, `receiver`, `message`, `received`, `
 CREATE TABLE `tblrejecteddogs` (
   `username` varchar(255) NOT NULL,
   `dogID` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
---
 -- Table structure for table `tblrejectedusers`
 --
 
@@ -123,6 +159,7 @@ CREATE TABLE `tblrejectedusers` (
   `username` varchar(255) NOT NULL,
   `RejectedUser` varchar(255) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -149,19 +186,18 @@ CREATE TABLE `tblusers` (
 -- Dumping data for table `tblusers`
 --
 
-INSERT INTO `tblusers` (`Status`, `username`, `img`, `password`, `city`, `fname`, `lname`, `dogsAdopted`, `dogsForAdoption`, `Rating`, `uID`) VALUES
-('', 'amiel', '6579da7967cd4.jpg', '$2y$10$sZm47LoFFWC2eJ/bkCAcT.skbwBGgN1Z2RHX0IUpMwr5SXUCNhr7e', 'Caloocan', 'Amiel Carhyl', 'Lapid', 0, 1, 0, 1),
-('', 'awd', '', '$2y$10$rVfvMjK0pA2W0ghxVp/CR.o6IePDOg7k.OsUQQRcrsPSJWEcZMhLy', 'Imus', 'Amiel Carhyl', 'Lapid', 0, 0, 0, 2),
-('', 'amielito', '', '$2y$10$A8mLzjRKlhgBQziU9V/Q4.xVP3Jy7F.w0vMthzfJV7qbCR2eDKf/e', 'Imus', 'Amiel Carhyl', 'Lapid', 0, 0, 0, 3),
-('', 'admin', '', '$2y$10$jkwhkebfNcCvoOlsz1EnneENR5pb4tO0kmhRFwFnUCzNQtRGVnk8a', 'Imus', 'Amiel Carhyl', 'Lapid', 0, 7, 0, 4),
-('', 'aaawd', '', '$2y$10$IdRQ6GhKYaewduYxPjdPUOZnERrnhFMq1EtM9hEXFmLpaGYQwXJla', 'Imus', 'Amiel Carhyl', 'Lapid', 0, 0, 0, 5),
-('', 'hArt06', '', '$2y$10$orprCUIzB6YcUpDh4qKRmujZCsNUUfmjNI8Rzn9iUOVXChn4vymnW', 'Caloocan', 'Nicole Heart', 'Mendoza', 0, 0, 0, 6),
-('', 'Renz', '657ac6b724fe9.jpg', '$2y$10$A7okzTUUynmbuv8JiuQjdOLt9OVb9E/S98NGQ7tPsTwPcpvV04Izq', 'General Trias', 'Jorenz', 'Ferrer', 0, 3, 0, 7),
-('', 'Ferrer1515', '657aabbbed645.jpg', '$2y$10$YWqK8bTdgj38qpyHBtT.nuxRqbmLj1YtvjOceXbP00y1q8FfeXfv6', 'General Trias', 'Joseph', 'Ferrer', 0, 3, 0, 8),
-('', 'amiels22', '', '$2y$10$WlIApeGlXI7EI0.cNK5Wl.F5yXabywOKVDf1hVIqLEOTMVhYaPtaC', 'Imus', 'Amiel Carhyl', 'Lapid', 0, 0, 0, 9),
-('', 'juandc', '', '$2y$10$oL9k4gFU.Vr5K83PH1rhyeTWbQ0c9SWqRpFflAwP44k4Xf72I20P6', 'Manila', 'Juan', 'Dela Cruz', 0, 0, 0, 10),
-('', 'darius', '', '$2y$10$VFHPrU3VddnmmpU1n.Hy1uG9RUacaBXooPcX0i.NQTUjN6aPQXvhK', 'Cavite', 'Darius', 'Gavino', 0, 0, 0, 11),
-('', 'Renki', '', '$2y$10$MdWJzBjaHqmpzAQB.TxYVe7IDOu89VMAUjJiDnXmnJEykdp8P.4Qy', 'Imus', 'Kim Caryl', 'Ragay', 0, 0, 0, 12);
+INSERT INTO `tblusers` (`Status`, `username`, `img`, `password`, `city`, `fname`, `lname`, `uID`) VALUES
+('', 'amiel', '6579da7967cd4.jpg', '$2y$10$sZm47LoFFWC2eJ/bkCAcT.skbwBGgN1Z2RHX0IUpMwr5SXUCNhr7e', 'Caloocan', 'Amiel Carhyl', 'Lapid', 1),
+('', 'awd', '', '$2y$10$rVfvMjK0pA2W0ghxVp/CR.o6IePDOg7k.OsUQQRcrsPSJWEcZMhLy', 'Imus', 'Amiel Carhyl', 'Lapid', 2),
+('', 'amielito', '', '$2y$10$A8mLzjRKlhgBQziU9V/Q4.xVP3Jy7F.w0vMthzfJV7qbCR2eDKf/e', 'Imus', 'Amiel Carhyl', 'Lapid', 3),
+('', 'admin', '', '$2y$10$jkwhkebfNcCvoOlsz1EnneENR5pb4tO0kmhRFwFnUCzNQtRGVnk8a', 'Imus', 'Amiel Carhyl', 'Lapid', 4),
+('', 'aaawd', '', '$2y$10$IdRQ6GhKYaewduYxPjdPUOZnERrnhFMq1EtM9hEXFmLpaGYQwXJla', 'Imus', 'Amiel Carhyl', 'Lapid', 5),
+('', 'hArt06', '', '$2y$10$orprCUIzB6YcUpDh4qKRmujZCsNUUfmjNI8Rzn9iUOVXChn4vymnW', 'Caloocan', 'Nicole Heart', 'Mendoza', 6),
+('', 'Renz', '', '$2y$10$A7okzTUUynmbuv8JiuQjdOLt9OVb9E/S98NGQ7tPsTwPcpvV04Izq', 'General Trias', 'Jorenz', 'Ferrer', 7),
+('', 'Ferrer1515', '', '$2y$10$YWqK8bTdgj38qpyHBtT.nuxRqbmLj1YtvjOceXbP00y1q8FfeXfv6', 'General Trias', 'Joseph', 'Ferrer', 8),
+('', 'amiels22', '', '$2y$10$WlIApeGlXI7EI0.cNK5Wl.F5yXabywOKVDf1hVIqLEOTMVhYaPtaC', 'Imus', 'Amiel Carhyl', 'Lapid', 9),
+('', 'juandc', '', '$2y$10$oL9k4gFU.Vr5K83PH1rhyeTWbQ0c9SWqRpFflAwP44k4Xf72I20P6', 'Manila', 'Juan', 'Dela Cruz', 10),
+('', 'darius', '', '$2y$10$VFHPrU3VddnmmpU1n.Hy1uG9RUacaBXooPcX0i.NQTUjN6aPQXvhK', 'Cavite', 'Darius', 'Gavino', 11);
 
 --
 -- Indexes for dumped tables
@@ -231,9 +267,7 @@ ALTER TABLE `tblusers`
 
 --
 -- AUTO_INCREMENT for table `tbldogs`
---
-ALTER TABLE `tbldogs`
-  MODIFY `dogID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=695;
+
 
 --
 -- AUTO_INCREMENT for table `tblmessages`
@@ -244,8 +278,7 @@ ALTER TABLE `tblmessages`
 --
 -- AUTO_INCREMENT for table `tblusers`
 --
-ALTER TABLE `tblusers`
-  MODIFY `uID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 
 --
 -- Constraints for dumped tables
