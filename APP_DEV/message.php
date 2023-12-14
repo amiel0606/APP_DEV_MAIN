@@ -5,79 +5,87 @@ if (!isset($_SESSION["uID"])) {
     exit();
 }
 ?>  
-<!-- LEFT NAVBAR -->
-    <div id="left-panel">
-        <ul>
-            <li><a href="welcome.php"> <img class="logo-side" src="./image/account.png">Profile</a></li>
-            <li><a href="adopt.php"><img class="logo-side" src="./image/dog.png">Adopt</a></li>
-            <li><a href="message.php"><img class="logo-side" src="./image/email.png">Messages</a></li>
-            <li><a href="./includes/logout.php"><img class="logo-side" src="./image/logout.png">Logout</a></li>
-        </ul>
-    </div>
-<!-- END OF LEFT NAVBAR -->
+
 
 <!-- DIV CONTACTS -->
-    <div id="rectangle_message">
-        <h2>Messages</h2>
-        <?php
-            include_once('./includes/dbCon.php');
-            $user= $_SESSION['username'];
-            $query = "SELECT ownerUser FROM tblfavorites WHERE uploader = ? ORDER BY timestamp DESC";
-            $stmt = $conn->prepare($query);
-            $stmt->bind_param("s", $user);
-            $stmt->execute();
-            $result = $stmt->get_result();
-
-            echo '<div id="mssgs">';
-            while ($row = $result->fetch_assoc()) {
-                echo '<div class="ownerUser" data-owneruser="' . $row['ownerUser'] . '" onclick="handleClick(this)">' . $row['ownerUser'] . '</div>';
-            }
-            echo '</div>';
-        ?>
+<div id="rectangle_message">
+    <h2>Messages</h2>
+    <div id="mssgs">
+        <!-- Messages will be inserted here by JavaScript -->
     </div>
-    <div class="vertical-line"></div>
+</div>
+<div class="vertical-line"></div>
 <!-- END OF DIV CONTACTS -->
 
 <!-- MESSAGING WINDOW -->
-    <div id="rectangle_convo">
-        <div class="inputbox">
+<div id="rectangle_convo">
+    <div id="messages">
+        <!-- Messages will be inserted here by JavaScript -->
+    </div>
+    <div class="inputbox">
         <div id="ownerUserDiv" data-owneruser="someUser"></div>
         <input id="message_input" type="text" style="display: none;">
-        <button id="sendbtn" style="display: none;">
-                <img id="sendImg" src="./image/paper-plane.png" alt="Send">
+        <button id="sendbtn" style="display: none;" onclick="sendMessage()">
+            <img id="sendImg" src="./image/paper-plane.png" alt="Send">
         </button>
-        </div>
     </div>
+</div>
 <!-- END OF MESSAGING WINDOW -->
 
 <!-- JAVASCRIPT FOR THIS PAGE -->
 <script>
-function handleClick(ownerUserDiv) {
-    var ownerUser = ownerUserDiv.getAttribute('data-owneruser');
-
-    // Change the URL
-    window.history.pushState({}, '', '?user=' + encodeURIComponent(ownerUser));
-
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', './includes/getConversation.php?user=' + encodeURIComponent(ownerUser), true);
-    xhr.onload = function() {
-        if (this.status == 200) {
-            var conversation = this.responseText.trim().split('\n');
-            updateConversation(conversation);
+$(document).ready(function() {
+    $('#message_input').hide();
+    $('#sendbtn').hide();
+    $.ajax({
+        url: './includes/getContacts.php',
+        type: 'GET',
+        success: function(response) {
+            var mssgsDiv = document.getElementById('mssgs');
+            mssgsDiv.innerHTML = response;
         }
-    };
-    xhr.send();
+    });
+});
+
+function handleClick(element) {
+    var user = element.getAttribute('data-owneruser');
+
+    // Update the data-owneruser attribute of the ownerUserDiv
+    $('#ownerUserDiv').attr('data-owneruser', user);
+    $('#ownerUserDiv').text(user); // Update the text of the ownerUserDiv
+
+    // Show the message_input and sendbtn
+    $('#message_input').show();
+    $('#sendbtn').show();
+
+    $.ajax({
+        url: './includes/getConversation.php',
+        type: 'GET',
+        data: { user: user },
+        success: function(response) {
+            var messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML = response; // Insert the conversation into the div
+        }
+    });
 }
 
-function updateConversation(conversation) {
-    var rectangleConvoDiv = document.getElementById('rectangle_convo');
-    rectangleConvoDiv.innerHTML = ''; // Clear the existing conversation
+function sendMessage() {
+    var ownerUser = $('#ownerUserDiv').attr('data-owneruser');
+    var message = $('#message_input').val();
 
-    for (var i = 0; i < conversation.length; i++) {
-        var messageDiv = document.createElement('div');
-        messageDiv.textContent = conversation[i];
-        rectangleConvoDiv.appendChild(messageDiv);
-    }
+    $.ajax({
+        url: './includes/sendMessage.php',
+        type: 'POST',
+        data: { ownerUser: ownerUser, message: message },
+        success: function(response) {
+            var messagesDiv = document.getElementById('messages');
+            var messageElement = document.createElement('div');
+            messageElement.className = 'messages';
+            messageElement.innerHTML = '<p><strong>You:</strong> ' + message + '</p>';
+            messagesDiv.appendChild(messageElement);
+        }
+    });
+    $('#message_input').val('');
 }
 
 

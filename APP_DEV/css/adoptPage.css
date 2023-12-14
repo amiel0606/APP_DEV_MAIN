@@ -10,30 +10,25 @@
     top: 180px;
     left: 700px;
     position: absolute;
-    width: 500px;
-    height: 600px;
+    width: 520px;
+    height: 700px;
     background-color: #f2f2f2;
     border-radius: 10px;
     display: flex;
-    align-items: center;
     justify-content: center;
     overflow: hidden;
     perspective: 1000px;
-    box-shadow: 0 0 0 5px #ffffff80;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 #dog-card img {
+    
     width: 450px;
     height: 540px;
     fill: #333;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin-top: 20px;
+    
 }
 
-#dog-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
-}
 
 .dog-card__content {
     position: absolute;
@@ -44,13 +39,11 @@
     padding: 20px;
     box-sizing: border-box;
     background-color: #f2f2f2;
-    transform: rotateX(-90deg);
-    transform-origin: bottom;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: none;
 }
 
-#dog-card:hover .dog-card__content {
-    transform: rotateX(0deg);
+.dog-card__content.show-content {
+    display: block; 
 }
 
 .dog-card__title {
@@ -60,9 +53,6 @@
     font-weight: 700;
 }
 
-#dog-card:hover img {
-    transform: scale(0);
-}
 
 .dog-card__description {
     margin: 10px 0 0;
@@ -71,9 +61,10 @@
     line-height: 1.4;
 }
 
+
 #dog-buttons {
     position: absolute;
-    bottom: 35px;
+    bottom: 95px;
     display: flex;
     left: 755px;
     align-items: flex-end;
@@ -81,25 +72,83 @@
     height: 50px;
 }
 
-.reject-button,
-.heart-button,
-.paw-button {
-    border-radius: 20px;
-    font-size: 60px;
-    width: 110px;
-    cursor: pointer;
-    margin-right: 30px;
-    background-color: #f2f2f2; /* Light gray */
-    color: #000; /* Black text color */
+#info-button {
+    position: absolute;
+    top: 750px;
+    left: 1160px;
+    display: flex;   
+}  
+
+.information {
+    border-radius: 100px;
+    border: 1px solid #000;
 }
 
-.reject-button:hover,
-.heart-button:hover,
-.paw-button:hover {
-    background-color: #c0c0c0; /* Slightly darker gray on hover */
+.information:hover {
+    background-color: #949092; /* Transparent slightly darker gray on hover */
     color: #000000;
 }
 
+.information img {
+    width: 30px;
+    height: 30px;
+}
+
+.reject-button img{
+    width: 60px;
+    height: 60px;
+}
+.reject-button {
+    border-radius: 100px;
+    border-color: darkviolet;
+    width: 110px;
+    height: 110px;
+    cursor: pointer;
+    margin-right: 30px;
+    background-color: transparent;
+   }
+
+.reject-button:hover {
+    background-color: #c27ba0; /* Slightly darker gray on hover */
+}
+
+.heart-button img{
+    width: 60px;
+    height: 60px;
+}
+.heart-button {
+    border-radius: 100px;
+    border-color: palevioletred;
+    width: 110px;
+    height: 110px;
+    cursor: pointer;
+    margin-right: 30px;
+    background-color: transparent;
+}
+
+.heart-button:hover {
+    background-color: #f795c0; /* Slightly darker red on hover */
+ 
+}
+
+.paw-button img{
+    width: 60px;
+    height: 60px;
+}
+.paw-button {
+    border-radius: 100px;
+    border-color: #9e4328;
+    width: 110px;
+    height: 110px;
+    cursor: pointer;
+    margin-right: 30px;
+    background-color: transparent;
+    }
+
+.paw-button:hover {
+    background-color: #c67622; /* Slightly darker blue on hover */
+
+}
 .add-dog-form {
     position: fixed;
     top: 130px;

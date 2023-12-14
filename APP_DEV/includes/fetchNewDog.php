@@ -1,16 +1,16 @@
 <?php
 session_start();
 include_once 'dbCon.php';
+
 $UserN = $_SESSION['username'];
-$favorites = isset($_SESSION['favorites']) ? $_SESSION['favorites'] : array();
-$favorites_str = implode(',', $favorites);
+
 $sql = "SELECT * FROM tbldogs 
         WHERE username != ? 
-        AND dogID NOT IN ($favorites_str) 
+        AND dogID NOT IN (SELECT dogID FROM tblrejecteddogs WHERE username = ?)
         ORDER BY RAND() LIMIT 1";
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $UserN);
+$stmt->bind_param("ss", $UserN, $UserN);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -21,7 +21,6 @@ if ($row = $result->fetch_assoc()) {
     $response .= '<p class="dog-card__description">Breed: ' . $row['breed'] . '</p><br>';
     $response .= '<p class="dog-card__description">Age: ' . $row['age'] . '</p><br>';
     $response .= '<p class="dog-card__description">Weight: ' . $row['weight'] . ' kg</p><br>';
-
     $response .= '<p class="dog-card__description">Other Description: ' . $row['description'] . '</p>';
     $response .= '</div>';
 

@@ -24,7 +24,6 @@ if (!isset($_SESSION["uID"])) {
         <img id="owner-image" src="./image/man.jpg">
     </div>
     <div id="popup" style="display: none;">User data updated successfully!</div>
-
 </div>
 <script>
 $(document).ready(function() {
