@@ -120,9 +120,11 @@ if (!isset($_SESSION["uID"])) {
         success: function (response) {
             console.log("addToFavorites.php response:", response);
 
+
             if (response.trim() === "DogAdded") {
                 // Dog added to favorites successfully, show the popup
                 showPopup("Dog Added to Favorites");
+
                 $.ajax({    
                     type: 'POST',
                     url: './includes/fetchNewDog.php',

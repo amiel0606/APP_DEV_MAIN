@@ -3,9 +3,10 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2023 at 06:58 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Dec 14, 2023 at 10:20 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,14 +44,12 @@ CREATE TABLE `tbldogs` (
 --
 
 INSERT INTO `tbldogs` (`username`, `dogID`, `name`, `breed`, `age`, `description`, `weight`, `image`) VALUES
-('admin', 681, 'Pepper', 'Shih Tzu', '5years old', 'None', '3', '6574670a663c56.88710653.jpg'),
-('admin', 682, 'Calcifer', 'Beagle', '2 years old', 'Taba hahaha', '15', '65746c6f624aa8.82463828.jpg'),
-('admin', 683, 'Icey', 'Shih Tzu', '', 'Cute', '4', '65746cf0a6fb63.85080693.jpg'),
-('admin', 684, 'Jacob', 'Husky', '', 'Laruan', '3kg', '65746d150c1f47.95767175.jpg'),
-('admin', 685, 'AWda', 'aawd', '', 'awd', '3', '657487e48adff3.97499691.jpg'),
-('admin', 686, 'adwd', 'awd', '', 'awd', '3', '657487ffd5b665.05157221.jpg'),
-('admin', 687, 'awdas', 'ada', 'a', '', 'awdaw', '657488092aaff9.75478145.jpg'),
-('amiel', 688, 'Igit', 'ASpin', '2', '', '4', '6575ad61be0484.06970347.jpg');
+('Ferrer1515', 689, 'Ice', 'Shih Tzu', '3 years', 'likes treats', '4', '657aaaebd6d877.16696003.jpg'),
+('Ferrer1515', 690, 'Miki', 'Aspin', '2 years', 'dog', '5', '657aab0822a4c4.96275313.jpg'),
+('Ferrer1515', 691, 'Goldy', 'Golden Retriever', '5 years', 'big boi', '15', '657aab2eaa5893.11095398.jpg'),
+('Renz', 692, 'Blackie', 'dikoalam', '1 year', 'black dog', '3', '657aab62d55ef3.88536328.jpg'),
+('Renz', 693, 'Enzorino', 'anon', '3 months', 'Too ez for enz', '2', '657aaba0d43874.85712974.jpg'),
+('Renz', 694, 'Copy', 'Domestic shorthair', '1', 'not a dog', '2', '657ac5cfb1b4d0.67949714.jpg');
 
 -- --------------------------------------------------------
 
@@ -76,6 +75,7 @@ CREATE TABLE `tblfavorites` (
 --
 
 INSERT INTO `tblfavorites` (`ownerUser`, `uploader`, `dogID`, `dogName`, `dogImage`, `dogBreed`, `dogAge`, `dogDescription`, `dogWeight`, `timestamp`) VALUES
+
 ('amiel', 'admin', 682, 'Calcifer', '65746c6f624aa8.82463828.jpg', 'Beagle', '2 years old', 'Taba hahaha', '15', '2023-12-13 21:05:09'),
 ('amiel', 'admin', 683, 'Icey', '65746cf0a6fb63.85080693.jpg', 'Shih Tzu', '', 'Cute', '4', '2023-12-13 19:06:52'),
 ('amiel', 'admin', 684, 'Jacob', '65746d150c1f47.95767175.jpg', 'Husky', '', 'Laruan', '3kg', '2023-12-13 19:21:00'),
@@ -86,6 +86,9 @@ INSERT INTO `tblfavorites` (`ownerUser`, `uploader`, `dogID`, `dogName`, `dogIma
 ('hArt06', 'admin', 686, 'adwd', '657487ffd5b665.05157221.jpg', 'awd', '', 'awd', '3', '2023-12-13 21:06:03'),
 ('hArt06', 'admin', 687, 'awdas', '657488092aaff9.75478145.jpg', 'ada', 'a', '', 'awdaw', '2023-12-13 21:06:08'),
 ('hArt06', 'amiel', 688, 'Igit', '6575ad61be0484.06970347.jpg', 'ASpin', '2', '', '4', '2023-12-13 20:41:49');
+('Renz', 'Ferrer1515', 689, 'Ice', '657aaaebd6d877.16696003.jpg', 'Shih Tzu', '3 years', 'likes treats', '4', '2023-12-14 08:58:20'),
+('Renz', 'Ferrer1515', 690, 'Miki', '657aab0822a4c4.96275313.jpg', 'Aspin', '2 years', 'dog', '5', '2023-12-14 08:58:42'),
+('Renz', 'Ferrer1515', 691, 'Goldy', '657aab2eaa5893.11095398.jpg', 'Golden Retriever', '5 years', 'big boi', '15', '2023-12-14 08:58:25');
 
 -- --------------------------------------------------------
 
@@ -111,6 +114,34 @@ INSERT INTO `tblmessages` (`Mid`, `sender`, `receiver`, `message`, `received`, `
 (1, 'sender', 'receiver', 'hello testing', '0', '0', '2023-12-10 15:13:47'),
 (5, 'admin', 'receiver', 'heee', '0', '0', '2023-12-10 17:08:37');
 
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblmessages`
+--
+
+CREATE TABLE `tblmessages` (
+  `Mid` int(255) NOT NULL,
+  `sender` varchar(3000) NOT NULL,
+  `receiver` varchar(3000) NOT NULL,
+  `message` text NOT NULL,
+  `received` varchar(255) NOT NULL,
+  `seen` varchar(255) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+
+-- Dumping data for table `tblmessages`
+--
+
+INSERT INTO `tblmessages` (`Mid`, `sender`, `receiver`, `message`, `received`, `seen`, `timestamp`) VALUES
+(1, 'sender', 'receiver', 'hello testing', '0', '0', '2023-12-10 15:13:47'),
+(5, 'admin', 'receiver', 'heee', '0', '0', '2023-12-10 17:08:37');
+
 -- --------------------------------------------------------
 
 --
@@ -120,6 +151,15 @@ INSERT INTO `tblmessages` (`Mid`, `sender`, `receiver`, `message`, `received`, `
 CREATE TABLE `tblrejecteddogs` (
   `username` varchar(255) NOT NULL,
   `dogID` int(100) NOT NULL
+
+-- Table structure for table `tblrejectedusers`
+--
+
+CREATE TABLE `tblrejectedusers` (
+  `username` varchar(255) NOT NULL,
+  `RejectedUser` varchar(255) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -136,6 +176,9 @@ CREATE TABLE `tblusers` (
   `city` varchar(100) NOT NULL,
   `fname` varchar(100) NOT NULL,
   `lname` varchar(100) NOT NULL,
+  `dogsAdopted` int(11) NOT NULL DEFAULT 0,
+  `dogsForAdoption` int(11) NOT NULL,
+  `Rating` int(11) NOT NULL DEFAULT 0,
   `uID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -159,6 +202,20 @@ INSERT INTO `tblusers` (`Status`, `username`, `img`, `password`, `city`, `fname`
 --
 -- Indexes for dumped tables
 --
+
+-- Table structure for notifications
+CREATE TABLE `tblnotifications` (
+  `notificationID` int(11) NOT NULL AUTO_INCREMENT,
+  `sender` varchar(255) NOT NULL,
+  `receiver` varchar(255) NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `message` varchar(255) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`notificationID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
 
 --
 -- Indexes for table `tbldogs`
@@ -191,6 +248,13 @@ ALTER TABLE `tblrejecteddogs`
   ADD KEY `FK_dog` (`dogID`);
 
 --
+-- Indexes for table `tblrejectedusers`
+--
+ALTER TABLE `tblrejectedusers`
+  ADD PRIMARY KEY (`username`,`RejectedUser`),
+  ADD KEY `FK_rejectedUser` (`RejectedUser`);
+
+--
 -- Indexes for table `tblusers`
 --
 ALTER TABLE `tblusers`
@@ -203,9 +267,7 @@ ALTER TABLE `tblusers`
 
 --
 -- AUTO_INCREMENT for table `tbldogs`
---
-ALTER TABLE `tbldogs`
-  MODIFY `dogID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=689;
+
 
 --
 -- AUTO_INCREMENT for table `tblmessages`
@@ -216,8 +278,7 @@ ALTER TABLE `tblmessages`
 --
 -- AUTO_INCREMENT for table `tblusers`
 --
-ALTER TABLE `tblusers`
-  MODIFY `uID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
 
 --
 -- Constraints for dumped tables
@@ -237,7 +298,26 @@ ALTER TABLE `tblrejecteddogs`
   ADD CONSTRAINT `FK_dog` FOREIGN KEY (`dogID`) REFERENCES `tbldogs` (`dogID`),
   ADD CONSTRAINT `FK_user` FOREIGN KEY (`username`) REFERENCES `tblusers` (`username`),
   ADD CONSTRAINT `tblrejecteddogs_ibfk_1` FOREIGN KEY (`username`) REFERENCES `tblusers` (`username`);
+
+--
+-- Constraints for table `tblrejectedusers`
+--
+ALTER TABLE `tblrejectedusers`
+  ADD CONSTRAINT `FK_rejectedUser` FOREIGN KEY (`RejectedUser`) REFERENCES `tblusers` (`username`),
+  ADD CONSTRAINT `FK_user_rejectedUser` FOREIGN KEY (`username`) REFERENCES `tblusers` (`username`);
 COMMIT;
+
+CREATE TABLE `tblMatch` (
+  `matchID` INT NOT NULL AUTO_INCREMENT,
+  `interestedUser` VARCHAR(255) NOT NULL,
+  `uploader` VARCHAR(255) NOT NULL,
+  `dogID` INT(100) NOT NULL,
+  `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`matchID`),
+  FOREIGN KEY (`interestedUser`) REFERENCES `tblusers` (`username`),
+  FOREIGN KEY (`uploader`) REFERENCES `tblusers` (`username`),
+  FOREIGN KEY (`dogID`) REFERENCES `tbldogs` (`dogID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
