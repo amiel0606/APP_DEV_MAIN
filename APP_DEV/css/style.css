@@ -126,10 +126,17 @@ body {
 	display: block;
 }
 
+#dog_bgg2{
+    top: 177px;
+	left: 905px;
+	width: 1077px;
+	height: 842px;
+    position: absolute;
+}
 #dog_bgg{
     top: 137px;
-	left: 1345px;
-	width: 577px;
+	left: 675px;
+	width: 1077px;
 	height: 842px;
     position: absolute;
 }

@@ -10,8 +10,6 @@ if (!isset($_SESSION["uID"])) {
 
 ?>
     <div class="right-panel">
-
-        
         <div id="dog-container">
             <div id="dog-card">
                 <img src="./image/defaultDoggo.png" alt="Default Dog Image">
