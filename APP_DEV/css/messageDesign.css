@@ -19,32 +19,33 @@
 	font-size: 16pt;
 	text-align: left;
 	letter-spacing: 7.215px;
-	color:#0E172C;
     position: absolute;
     width: 450px;
     height: 650px;
     overflow-y: scroll;
-    border: 1px solid #ccc;
     padding: 10px;
 }
 
 .ownerUser {
-    background-color: #f0f0f0;
+    background-color: #FED9ED;
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), 0 8px 16px rgba(0, 0, 0, 0);
 }
 
 .ownerUser:hover {
-    background-color: #e0e0e0;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6), 0 16px 32px rgba(0, 0, 0, 0.6);
+    color: #0e172c;
+    background-color: #BB9CC0;
 }
 
 #messages {
     height: 650px;
     overflow-y: auto;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     text-align: left;
     justify-content: left;
 }
@@ -52,20 +53,20 @@
 #rectangle_message {
     position: absolute;
     margin-top: 170px;
-	top: 0px;
-	left: 170px;
-	width: 475px;
-	height: 750px;
+    top: 0px;
+    left: 80px;
+    width: 475px;
+    height: 750px;
     border: 3px solid #0E172C;
-	background:#d2b3d6;
-
+    background: #d2b3d6;
 }
+
 #rectangle_convo{
     max-height: 750px;
     position: absolute;
     margin-top: 170px;
 	top: 0px;
-	left: 655px;
+	left: 585px;
 	width: 1200px;
 	height: 750px;
     border: 3px solid #0E172C;
@@ -90,13 +91,14 @@
     font-family: var(--fontMain);
     font-size: 26px;
 }
-.vertical-line {
-    border-left: 3px solid #0E172C;
-    height: 477px;
-    margin-top: 0px;
-    margin-left: 408px;
-    transform: rotate(90deg);
-} 
+.hr {
+    width: 100%;
+    margin-top: -10px;
+    margin-left: 0px;
+    size: 20px;
+    border: 1px solid black;
+}
+
 .inputbox{
     position: absolute;
     margin-top: 665px;
@@ -109,9 +111,15 @@
 
 #message_input{
     width: 800px;
-    margin-left: 100px;
+    margin-left: 250px;
     position: absolute;
-
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    color: var(--color-text);
+    border-radius: 10px;
+    font-family: var(--fontMain);
+    font-size: 16pt;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 #sendbtn{
@@ -122,7 +130,7 @@
     border-radius: 50%;
     width: 50px;
     height: 50px;
-    left: 1100px;
+    left: 1075px;
 
 }
 
@@ -135,34 +143,36 @@
 
 .messages.sent {
     text-align: right;
-    background-color: #caf0f8;
+    background-color: #FED9ED;
     margin-left: 930px;
     margin-top: 20px;
     padding: 10px;
     border-radius: 10px;
     width: 20%;
     height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), 0 8px 16px rgba(0, 0, 0, 0);
 }
 
 .messages.received {
     text-align: left;
-    background-color: #e0e7ff;
-    margin-right: 20%;
+    background-color: #E7BCDE;
+    margin-left: 1%;
     margin-top: 20px;
     padding: 10px;
     border-radius: 10px;
     width: 20%;
     height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), 0 8px 16px rgba(0, 0, 0, 0);
 }
 
 .sent-message {
     text-align: right;
-    background-color: #caf0f8;
+    background-color: #FED9ED;
     margin-left: 930px;
     margin-top: 20px;
     padding: 10px;
     border-radius: 10px;
     width: 20%;
     height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), 0 8px 16px rgba(0, 0, 0, 0);
 }
-
