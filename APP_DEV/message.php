@@ -23,7 +23,7 @@ if (!isset($_SESSION["uID"])) {
         <!-- Messages will be inserted here by JavaScript -->
     </div>
     <div class="inputbox">
-        <div id="ownerUserDiv" data-owneruser="someUser"></div>
+        <div id="ownerUserDiv" data-owneruser="someUser" style="display: none;"></div>
         <input id="message_input" type="text" style="display: none;">
         <button id="sendbtn" style="display: none;" onclick="sendMessage()">
             <img id="sendImg" src="./image/paper-plane.png" alt="Send">
@@ -49,13 +49,10 @@ $(document).ready(function() {
 
 function handleClick(element) {
     var user = element.getAttribute('data-owneruser');
-
     $('#ownerUserDiv').attr('data-owneruser', user);
     $('#ownerUserDiv').text(user);
-
     $('#message_input').show();
     $('#sendbtn').show();
-
     $.ajax({
         url: './includes/getConversation.php',
         type: 'GET',
@@ -66,21 +63,17 @@ function handleClick(element) {
         }
     });
 }
-
 function sendMessage() {
     var ownerUser = $('#ownerUserDiv').attr('data-owneruser');
     var message = $('#message_input').val();
-
     $.ajax({
         url: './includes/sendMessage.php',
         type: 'POST',
         data: { ownerUser: ownerUser, message: message },
         success: function(response) {
             var messagesDiv = document.getElementById('messages');
-            var messageElement = document.createElement('div');
-            messageElement.className = 'messages';
-            messageElement.innerHTML = '<p><strong>You:</strong> ' + message + '</p>';
-            messagesDiv.appendChild(messageElement);
+            messagesDiv.insertAdjacentHTML('beforeend', response);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
     });
     $('#message_input').val('');

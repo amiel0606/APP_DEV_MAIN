@@ -1,3 +1,19 @@
+::-webkit-scrollbar {
+    width: 1px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 #mssgs {
 	font-family: var(--fontMain);
 	font-size: 16pt;
@@ -5,7 +21,6 @@
 	letter-spacing: 7.215px;
 	color:#0E172C;
     position: absolute;
-
     width: 450px;
     height: 650px;
     overflow-y: scroll;
@@ -25,6 +40,15 @@
 .ownerUser:hover {
     background-color: #e0e0e0;
 }
+
+#messages {
+    height: 650px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    text-align: left;
+    justify-content: left;
+}
+
 #rectangle_message {
     position: absolute;
     margin-top: 170px;
@@ -37,6 +61,7 @@
 
 }
 #rectangle_convo{
+    max-height: 750px;
     position: absolute;
     margin-top: 170px;
 	top: 0px;
@@ -129,3 +154,15 @@
     width: 20%;
     height: auto;
 }
+
+.sent-message {
+    text-align: right;
+    background-color: #caf0f8;
+    margin-left: 930px;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    width: 20%;
+    height: auto;
+}
+
