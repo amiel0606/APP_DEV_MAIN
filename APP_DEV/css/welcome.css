@@ -4,7 +4,7 @@
     width: 400px;
     justify-content: space-between;
     height: auto;
-    background-color: var(--secondary-color);
+    background-color: #BB9CC0;
     top: 180px;
     padding: 50px;
     left: 670px;
@@ -13,6 +13,7 @@
     position: absolute;
     transition: height .3s ease;
 }
+
 .wrap h2 {
     color: var(--color-text);
     font-size: 30px;
@@ -138,14 +139,14 @@ input {
     background-color: #f2f2f2;
     border-radius: 10px;
     display: flex;
-    margin-right: 30px;
+    margin-right: 20px;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     perspective: 1000px;
     box-shadow: 0 0 0 5px #ffffff80;
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    left: -300px;
+    left: -310px;
 }
 
 .up-for-adoption .card img {
@@ -174,12 +175,19 @@ input {
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+.up-for-adoption .card:hover .card__content {
+    transform: rotateX(0deg);
+}
 
 .up-for-adoption .card__title {
     margin: 0;
     font-size: 24px;
     color: #333;
     font-weight: 700;
+}
+
+.up-for-adoption .card:hover img {
+    scale: 0;
 }
 
 .up-for-adoption .card__description {

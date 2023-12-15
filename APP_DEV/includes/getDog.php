@@ -15,7 +15,7 @@ $sql = "SELECT tbldogs.dogID, tbldogs.image, tbldogs.name, tbldogs.breed, tbldog
         ORDER BY RAND() LIMIT 1";
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ss", $user, $user);
+$stmt->bind_param("sss", $user, $user, $user);
 $stmt->execute();
 $result = $stmt->get_result();
 
@@ -68,6 +68,5 @@ if ($row = $result->fetch_assoc()) {
 
     echo $response;
 }
-
 $stmt->close();
-
+?>

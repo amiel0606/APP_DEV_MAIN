@@ -1,0 +1,56 @@
+style.css
+
+#dog_bgg{
+    top: 177px;
+	left: 905px;
+	width: 1077px;
+	height: 842px;
+    position: absolute;
+}
+#dog_bgg2{
+    top: 137px;
+	left: 675px;
+	width: 1077px;
+	height: 842px;
+    position: absolute;
+}
+
+=============================================
+index.php
+line 4 & 5
+
+<img src="./image/adogs.png" id="dog_bgg">  
+<img src="./image/bdogs.png" id="dog_bgg2">
+=============================================
+header.php
+
+echo "<a href='#'> <img class='logo-top' src='./image/logo/notif.png'></a>";
+=============================================
+welcome.css
+line 3
+.wrap {
+    width: 400px;
+    justify-content: space-between;
+    height: auto;
+    background-color: #BB9CC0;
+    top: 180px;
+    padding: 50px;
+    left: 670px;
+    box-shadow: 6px 7px 11px 0px rgba(0,0,0,0.68);
+    border-radius: 20px;
+    position: absolute;
+    transition: height .3s ease;
+}
+
+line 39 
+input {
+    width: 400px;
+    padding: 10px;
+    margin-bottom: 20px;
+    margin-left: -195px;
+    box-sizing: border-box;
+    color: var(--color-text);
+    border-radius: 10px;
+    font-family: var(--fontMain);
+    font-size: 16pt;
+}

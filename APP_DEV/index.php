@@ -1,7 +1,8 @@
 <?php
     include_once('./includes/header.php');
 ?>
-        <img src="./image/dog_bgg.png" id="dog_bgg"> 
+        <img src="./image/adogs.png" id="dog_bgg">  
+        <img src="./image/bdogs.png" id="dog_bgg2">
         <div class="tagline"> <h2 class="tags">Fur-Ever <br> Buddies: <br> Find <br>Your <br>Furry <br>Soulmate</h2>
         </div>
 
