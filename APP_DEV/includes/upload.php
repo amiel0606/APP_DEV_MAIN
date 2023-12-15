@@ -1,7 +1,6 @@
 <?php
 session_start();
 include_once 'dbCon.php';
-
 if (isset($_POST['addDog'])) {
     $file = $_FILES['dogImage'];
     $fileName = $_FILES['dogImage']['name'];
@@ -12,18 +11,15 @@ if (isset($_POST['addDog'])) {
     $fileExtension = explode('.', $fileName);
     $fileActualExtension = strtolower(end($fileExtension));
     $allowed = array('jpeg', 'jpg', 'png');
-
     if (in_array($fileActualExtension, $allowed)) {
         if ($fileError === 0) {
             if ($fileSize < 500000) {
                 $newFileName = uniqid('', true).'.'.$fileActualExtension;
                 $fileDestination = '../uploads/'.$newFileName;
                 move_uploaded_file($fileTmpName, $fileDestination);
-
-                $sqlInsertDog = "INSERT INTO tbldogs(username, name, breed, age, description, weight, image) VALUES(?, ?, ?, ?, ?, ?, ?)";
-                $stmtInsertDog = mysqli_stmt_init($conn);
-
-                if (!mysqli_stmt_prepare($stmtInsertDog, $sqlInsertDog)) {
+                $sql = "INSERT INTO tbldogs(username, name, breed, age, description, weight, image) VALUES(?, ?, ?, ?, ?, ?, ?)";
+                $stmt = mysqli_stmt_init($conn);
+                if (!mysqli_stmt_prepare($stmt, $sql)) {
                     echo '<script>alert("SQL Error");</script>';
                     header("location: ../adopt.php?error=stmtFailed");
                     exit();
@@ -34,26 +30,11 @@ if (isset($_POST['addDog'])) {
                 $dogAge = $_POST['age'];
                 $dogDescription = $_POST['description'];
                 $dogWeight = $_POST['weight'];
-                $userN = $_SESSION['username'];
+                $UserN = $_SESSION['username'];
 
-                mysqli_stmt_bind_param($stmtInsertDog, "sssssss", $userN, $dogName, $dogBreed, $dogAge, $dogDescription, $dogWeight, $newFileName);
-                mysqli_stmt_execute($stmtInsertDog);
-                mysqli_stmt_close($stmtInsertDog);
-
-                // Increment dogsForAdoption count in tblusers
-                $sqlUpdateDogsForAdoption = "UPDATE tblusers SET dogsForAdoption = dogsForAdoption + 1 WHERE username = ?";
-                $stmtUpdateDogsForAdoption = mysqli_stmt_init($conn);
-
-                if (!mysqli_stmt_prepare($stmtUpdateDogsForAdoption, $sqlUpdateDogsForAdoption)) {
-                    echo '<script>alert("SQL Error");</script>';
-                    header("location: ../adopt.php?error=stmtFailed");
-                    exit();
-                }
-
-                mysqli_stmt_bind_param($stmtUpdateDogsForAdoption, "s", $userN);
-                mysqli_stmt_execute($stmtUpdateDogsForAdoption);
-                mysqli_stmt_close($stmtUpdateDogsForAdoption);
-
+                mysqli_stmt_bind_param($stmt, "sssssss", $UserN, $dogName, $dogBreed, $dogAge, $dogDescription, $dogWeight, $newFileName);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_close($stmt);
                 echo '<script>alert("Dog added successfully");</script>';
                 header("location: ../adopt.php?SuccessfullyAdded");
             } else {
@@ -72,4 +53,3 @@ if (isset($_POST['addDog'])) {
         exit();
     }
 }
-?>

@@ -5,6 +5,7 @@
     margin-right: 1000px;
 }
 
+
 #dog-card {
     top: 180px;
     left: 700px;
@@ -28,6 +29,7 @@
     
 }
 
+
 .dog-card__content {
     position: absolute;
     top: 0;
@@ -40,50 +42,8 @@
     display: none;
 }
 
-
-.dog-card__content .uploader-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.dog-card__content .uploader-info .uploader-name {
-    margin-top: 10px; /* Adjust as needed */
-    margin-bottom: 0px; /* Adjust as needed */
-    font-size: 18px;
-    color: #333;
-}
-
-.dog-card__content .uploader-info .uploader-profile-picture {
-    width: 220px !important;
-    height: 220px !important;
-    border-radius: 50px !important;
-    margin-bottom: 5px !important;
-    margin-left: 0px;
-
-}
-
-.dog-card__content .uploader-info .uploader-profile-picture img {
-    width: 100% !important;
-    height: 100% !important;
-    border-radius: 25px !important;
-}
-
-.dog-card__content .uploader-info .uploader-details {
-    margin-top: 10px; /* Adjust as needed */
-}
-
-.dog-card__content .uploader-info .uploader-location,
-.dog-card__content .uploader-info .uploader-rating, .dog-card__content .uploader-info .uploader-dogs-adopted,
-.dog-card__content .uploader-info .uploader-dogs-for-adoption  {
-    margin-left: 5px;
-    font-size: 16px;
-    color: #777;
-    line-height: 1.4;
-}
-
-
 .dog-card__content.show-content {
-    display: block;
+    display: block; 
 }
 
 .dog-card__title {
@@ -94,31 +54,9 @@
 }
 
 
-.uploader-details .uploader-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-}
-
-.uploader-details .uploader-row p{
-    flex: 1;
-    margin: 5px 0;
-}
-.dog-info-columns {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-}
-
-.dog-info-columns p {
-    flex: 1;
-    margin: 5px 0;
-}
-
-
 .dog-card__description {
-    margin: 10px 0;
-    font-size: 16px;
+    margin: 10px 0 0;
+    font-size: 14px;
     color: #777;
     line-height: 1.4;
 }
@@ -138,9 +76,8 @@
     position: absolute;
     top: 750px;
     left: 1160px;
-    display: flex;
-}
-
+    display: flex;   
+}  
 
 .information {
     border-radius: 100px;
@@ -157,11 +94,10 @@
     height: 30px;
 }
 
-.reject-button img {
+.reject-button img{
     width: 60px;
     height: 60px;
 }
-
 .reject-button {
     border-radius: 100px;
     border-color: darkviolet;
@@ -170,17 +106,16 @@
     cursor: pointer;
     margin-right: 30px;
     background-color: transparent;
-}
+   }
 
 .reject-button:hover {
     background-color: #c27ba0; /* Slightly darker gray on hover */
 }
 
-.heart-button img {
+.heart-button img{
     width: 60px;
     height: 60px;
 }
-
 .heart-button {
     border-radius: 100px;
     border-color: palevioletred;
@@ -193,26 +128,7 @@
 
 .heart-button:hover {
     background-color: #f795c0; /* Slightly darker red on hover */
-}
-
-.paw-button img {
-    width: 60px;
-    height: 60px;
-}
-
-.paw-button {
-    border-radius: 100px;
-    border-color: #9e4328;
-
-    width: 110px;
-    height: 110px;
-    cursor: pointer;
-    margin-right: 30px;
-    background-color: transparent;
-}
-
-.paw-button:hover {
-    background-color: #c67622; /* Slightly darker blue on hover */
+ 
 }
 
 .paw-button img{
@@ -239,6 +155,7 @@
     right: 20px;
     margin: 20px;
 }
+
 
 .toggle-button {
     background-color: #0e172c;
@@ -302,7 +219,6 @@
     border-radius: 5px;
     font-size: 16px;
 }
-
 .add-dog-form button {
     margin: 10px 0;
     padding: 15px;
@@ -316,6 +232,7 @@
 
 .add-dog-buttons {
     display: flex;
+  
 }
 
 .exit-button {
@@ -329,7 +246,7 @@
     font-size: 12px;
     position: absolute; /* Absolute positioning */
     top: 507.5px; /* Adjust top spacing as needed */
-    right: 30px; /* Adjust right spacing as needed */
+    right:30px; /* Adjust right spacing as needed */
 }
 
 #popup-container {
@@ -354,3 +271,4 @@
     color: #007BFF;
     text-decoration: underline;
 }
+

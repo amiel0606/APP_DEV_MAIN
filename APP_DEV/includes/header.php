@@ -38,6 +38,7 @@
                             echo "<a href='adopt.php#'> <img class='logo-top' src='./image/logo/adopt.png'></a>";
                             echo "<a href='welcome.php#'> <img class='logo-top' src='./image/logo/home.png'></a>";
                             echo "<a href='profile.php#'> <img class='logo-top' src='./image/logo/profile.png'></a>";
+                            echo "<a href='#'> <img class='logo-top' src='./image/logo/notif.png'></a>";
                         }
                         else {
                             echo "<a href='#' class='nav-links openbtn' onclick='openForm( )'>Log in</a>";

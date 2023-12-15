@@ -1,3 +1,4 @@
+
 h2{ letter-spacing: 5px;}
 
 :root{
@@ -446,6 +447,22 @@ body {
     font-size: 28px;
     text-align: center;
     color: var(--color-text);
+    position: absolute;
+}
+
+#dog_bgg{
+    top: 177px;
+	left: 905px;
+	width: 1077px;
+	height: 842px;
+    position: absolute;
+}
+
+#dog_bgg2{
+    top: 137px;
+	left: 675px;
+	width: 1077px;
+	height: 842px;
     position: absolute;
 }
 

@@ -50,11 +50,9 @@ $(document).ready(function() {
 function handleClick(element) {
     var user = element.getAttribute('data-owneruser');
 
-    // Update the data-owneruser attribute of the ownerUserDiv
     $('#ownerUserDiv').attr('data-owneruser', user);
-    $('#ownerUserDiv').text(user); // Update the text of the ownerUserDiv
+    $('#ownerUserDiv').text(user);
 
-    // Show the message_input and sendbtn
     $('#message_input').show();
     $('#sendbtn').show();
 
@@ -64,7 +62,7 @@ function handleClick(element) {
         data: { user: user },
         success: function(response) {
             var messagesDiv = document.getElementById('messages');
-            messagesDiv.innerHTML = response; // Insert the conversation into the div
+            messagesDiv.innerHTML = response;
         }
     });
 }
@@ -87,8 +85,6 @@ function sendMessage() {
     });
     $('#message_input').val('');
 }
-
-
 
 </script>
 <!-- END OF JAVASCRIPT FOR THIS PAGE -->
