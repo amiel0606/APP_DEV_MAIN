@@ -11,10 +11,9 @@ if (!isset($_SESSION["uID"])) {
 <div id="rectangle_message">
     <h2>Messages</h2>
     <div id="mssgs">
-        <!-- Messages will be inserted here by JavaScript -->
     </div>
+    <hr class="hr">
 </div>
-<div class="vertical-line"></div>
 <!-- END OF DIV CONTACTS -->
 
 <!-- MESSAGING WINDOW -->
@@ -37,6 +36,13 @@ if (!isset($_SESSION["uID"])) {
 $(document).ready(function() {
     $('#message_input').hide();
     $('#sendbtn').hide();
+    $('#message_input').on('keypress', function(e) {
+    if (e.keyCode === 13) {
+        sendMessage();
+        e.preventDefault();
+    }
+});
+
     $.ajax({
         url: './includes/getContacts.php',
         type: 'GET',
@@ -60,6 +66,7 @@ function handleClick(element) {
         success: function(response) {
             var messagesDiv = document.getElementById('messages');
             messagesDiv.innerHTML = response;
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
     });
 }
