@@ -25,20 +25,54 @@ if (isset($_POST['rejectDog'])) {
             $stmtInsert->close();
 
             // Fetch the next available dog
-            $sql = "SELECT dogID, image, name, breed, age, weight, description FROM tbldogs WHERE dogID NOT IN (SELECT dogID FROM tblrejecteddogs WHERE username = ?) ORDER BY RAND() LIMIT 1";
+            $sql = "SELECT tbldogs.dogID, tbldogs.image, tbldogs.name, tbldogs.breed, tbldogs.age, tbldogs.weight, tbldogs.description,
+                    tblusers.img AS user_img, CONCAT(tblusers.fname, ' ', tblusers.lname) AS user_name,
+                    tblusers.city AS user_location, tblusers.dogsAdopted, tblusers.dogsForAdoption, tblusers.rating
+                    FROM tbldogs
+                    INNER JOIN tblusers ON tbldogs.username = tblusers.username
+                    WHERE tbldogs.username != ? 
+                    AND tbldogs.dogID NOT IN (SELECT dogID FROM tblrejecteddogs WHERE username = ?)
+                    AND tbldogs.dogID NOT IN (SELECT dogID FROM tbldogs WHERE username = ?)
+                    ORDER BY RAND() LIMIT 1";
+                    
             $stmtNextDog = $conn->prepare($sql);
-            $stmtNextDog->bind_param("s", $user);
+            $stmtNextDog->bind_param("sss", $user, $user, $user);
             $stmtNextDog->execute();
             $resultNextDog = $stmtNextDog->get_result();
 
             if ($rowNextDog = $resultNextDog->fetch_assoc()) {
                 $response = '<img src="./uploads/' . $rowNextDog['image'] . '" data-dogid="' . $rowNextDog['dogID'] . '">';
                 $response .= '<div class="dog-card__content">';
-                $response .= '<p class="dog-card__title">Name: ' . $rowNextDog['name'] . '</p><br>';
-                $response .= '<p class="dog-card__description">Breed: ' . $rowNextDog['breed'] . '</p><br>';
-                $response .= '<p class="dog-card__description">Age: ' . $rowNextDog['age'] . ' months</p><br>';
-                $response .= '<p class="dog-card__description">Weight: ' . $rowNextDog['weight'] . 'kg</p><br>';
+                $response .= '<p class="dog-card__title">Dog Name: ' . $rowNextDog['name'] . '</p><br>';
+                
+                // Two-column layout for Breed and Weight
+                $response .= '<div class="dog-info-columns">';
+                $response .= '<p class="dog-card__description">Breed: ' . $rowNextDog['breed'] . '</p>';
+                $response .= '<p class="dog-card__description">Weight: ' . $rowNextDog['weight'] . ' kg</p>';
+                $response .= '</div>';
+                
+                // Display Age and Other Description
+                $response .= '<div class="dog-info-columns">';
+                $response .= '<p class="dog-card__description">Age: ' . $rowNextDog['age'] . '</p>';
                 $response .= '<p class="dog-card__description">Other Description: ' . $rowNextDog['description'] . '</p>';
+                $response .= '</div>';
+                
+                // Display uploader's information
+                $response .= '<div class="uploader-info">';
+                $response .= '<p class="uploader-name">Owner Name: ' . $rowNextDog['user_name'] . '</p>';
+                $response .= '<img class="uploader-profile-picture" src="./uploads/' . $rowNextDog['user_img'] . '" alt="Uploader Profile Picture">';
+                $response .= '<div class="uploader-details">';
+                $response .= '<div class="uploader-row">';
+                $response .= '<p class="uploader-location">Location: ' . $rowNextDog['user_location'] . '</p>';
+                $response .= '<p class="uploader-dogs-adopted">Dogs Adopted: ' . $rowNextDog['dogsAdopted'] . '</p>';
+                $response .= '</div>';
+                $response .= '<div class="uploader-row">';
+                $response .= '<p class="uploader-rating">Rating: ' . $rowNextDog['rating'] . ' stars</p>';
+                $response .= '<p class="uploader-dogs-for-adoption">Dogs For Adoption: ' . $rowNextDog['dogsForAdoption'] . '</p>';
+                $response .= '</div>';
+                $response .= '</div>';
+                $response .= '</div>';
+
                 $response .= '</div>';
             
                 echo $response;
@@ -56,7 +90,8 @@ if (isset($_POST['rejectDog'])) {
             $stmtNextDog->close();
         } else {
             // Invalid combination, handle accordingly
-            echo "Invalid combination of username and dogID.";
+            http_response_code(400); // Set HTTP response status code to 400 (Bad Request)
+            echo "Invalid combination of username and dogID. Please try again.";
         }
     } else {
         // Handle invalid data
