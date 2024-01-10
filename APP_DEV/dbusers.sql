@@ -93,7 +93,21 @@ CREATE TABLE `tblmatch` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblmessages`
+-- Table structure for table `tblmatch`
+--
+CREATE TABLE `tblmatch` (
+  `interestedUsername` varchar(255) NOT NULL,
+  `uploaderUsername` varchar(255) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- --------------------------------------------------------
+
+--
+
+-- Table structure for table tblmatch
+
 --
 
 CREATE TABLE `tblmessages` (
@@ -128,6 +142,46 @@ CREATE TABLE `tblnotifications` (
   `message` varchar(255) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `dogID` int(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tblnotifications`
+--
+
+INSERT INTO `tblnotifications` (`notificationID`, `sender`, `receiver`, `type`, `message`, `timestamp`, `dogID`) VALUES
+(4, 'Renki', 'Ferrer1515', 'Match Request', 'Match request with dog successfully sent!', '2023-12-15 14:08:16', 5),
+(5, 'Renz', 'Ferrer1515', 'Match Request', 'Match request with dog successfully sent!', '2023-12-15 19:53:47', 5),
+(6, 'deCarte', 'Ferrer1515', 'Match Request', 'Match request with dog successfully sent!', '2023-12-15 19:59:50', 5),
+(7, 'Ryujin', 'Ferrer1515', 'Match Request', 'Match request with dog successfully sent!', '2023-12-15 20:00:20', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table tblnotifications
+--
+
+CREATE TABLE `tblrejecteddogs` (
+  `username` varchar(255) NOT NULL,
+  `dogID` int(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tblrejecteddogs`
+--
+
+INSERT INTO `tblrejecteddogs` (`username`, `dogID`) VALUES
+('Ryujin', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblrejectedusers`
+--
+
+CREATE TABLE `tblrejectedusers` (
+  `username` varchar(255) NOT NULL,
+  `RejectedUser` varchar(255) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -215,6 +269,7 @@ INSERT INTO `tblusers` (`Status`, `username`, `img`, `password`, `city`, `fname`
 --
 
 --
+
 -- Indexes for table `tbldogs`
 --
 ALTER TABLE `tbldogs`
@@ -233,12 +288,33 @@ ALTER TABLE `tblfavorites`
 -- Indexes for table `tblmatch`
 --
 --
+
+-- Indexes for table `tblmatch`
+--
+--
+-- Indexes for table `tblmatch`
+--
+--
 -- Indexes for table `tblmessages`
 --
 ALTER TABLE `tblmessages`
   ADD PRIMARY KEY (`Mid`),
   ADD KEY `Fk` (`sender`(768)),
   ADD KEY `foreignKey` (`receiver`(768));
+
+--
+-- Indexes for table `tblnotifications`
+--
+ALTER TABLE `tblnotifications`
+  ADD PRIMARY KEY (`notificationID`),
+  ADD KEY `FK_dog_notification` (`dogID`);
+
+--
+-- Indexes for table `tblnotifications`
+--
+ALTER TABLE `tblnotifications`
+  ADD PRIMARY KEY (`notificationID`),
+  ADD KEY `FK_dog_notification` (`dogID`);
 
 --
 -- Indexes for table `tblnotifications`
@@ -274,6 +350,7 @@ ALTER TABLE `tblusers`
 
 --
 -- AUTO_INCREMENT for table `tbldogs`
+
 --
 ALTER TABLE `tbldogs`
   MODIFY `dogID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=702;
@@ -283,10 +360,21 @@ ALTER TABLE `tbldogs`
 --
 
 --
--- AUTO_INCREMENT for table `tblmessages`
+-- AUTO_INCREMENT for table `tblmatch`
 --
-ALTER TABLE `tblmessages`
-  MODIFY `Mid` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+
+--
+-- AUTO_INCREMENT for table `tblmatch`
+--
+
+--
+
+-- AUTO_INCREMENT for table `tblnotifications`
+--
+ALTER TABLE `tblnotifications`
+  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 
 --
 -- AUTO_INCREMENT for table `tblnotifications`
@@ -312,7 +400,28 @@ ALTER TABLE `tblfavorites`
   ADD CONSTRAINT `FK_user_favorite` FOREIGN KEY (`ownerUser`) REFERENCES `tblusers` (`username`);
 
 --
+
+--
+
+--
+-- Constraints for table `tblnotifications`
+--
+ALTER TABLE `tblnotifications`
+  ADD CONSTRAINT `FK_dog_notification` FOREIGN KEY (`dogID`) REFERENCES `tbldogs` (`dogID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `tblmatch`
+--
+
+--
+-- Constraints for table `tblnotifications`
+--
+ALTER TABLE `tblnotifications`
+  ADD CONSTRAINT `FK_dog_notification` FOREIGN KEY (`dogID`) REFERENCES `tbldogs` (`dogID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tblrejecteddogs`
+
 --
 
 --

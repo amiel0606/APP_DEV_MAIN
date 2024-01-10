@@ -1,6 +1,9 @@
 <?php
+    ob_start();
     session_start();
     include_once 'dbCon.php';
+    error_reporting(E_ALL);
+    ini_set('display_errors', '1');
 ?>
 
 <!DOCTYPE html>
@@ -25,16 +28,12 @@
         $(document).ready(function () {
             var notificationsLoaded = false;
             $('.notif-clickable').click(function () {
-                // Toggle notification overlay
                 toggleNotification();
-
                 if (!notificationsLoaded) {
                     fetchNotifications();
-                    notificationsLoaded = true; // Set the flag to true after loading notifications
+                    notificationsLoaded = true;
                 }
             });
-       
-
         function showPopup(message) {
         $("#popup-message").text(message);
         $("#popup-container").fadeIn();
@@ -42,89 +41,84 @@
             $("#popup-container").fadeOut();
         }, 3000);
     }
-
-    // Close popup on click
     $("#popup-close").click(function () {
         $("#popup-container").fadeOut();
     });
 
-    function acceptMatch(interestedUsername, uploaderUsername, timestamp) {
-    // AJAX request to insert a new record into tblmatch
+    function acceptMatch(receiver, sender, timestamp) {
+    // Log the data
+    console.log({
+        sender: sender,
+        receiver: receiver,
+        timestamp: timestamp
+    });
     $.ajax({
         type: 'POST',
         url: './includes/acceptMatch.php',
         data: {
-            interestedUsername: interestedUsername,
-            uploaderUsername: uploaderUsername,
+            sender: sender,
+            receiver: receiver,
             timestamp: timestamp
         },
         success: function (response) {
-            // Handle success (you can show a message or perform additional actions)
-            showPopup('Match Accepted!');
+            console.log(response);
+            var result = JSON.parse(response);
+            if (result.status === "Success") {
+                alert('Match accepted successfully.');
+            } else {
+                alert('Unexpected response while accepting match.');
+            }
         },
         error: function () {
-            // Handle error (you can show an error message)
-            showPopup('Error accepting match.');
+            alert('Error accepting match.');
         }
     });
 }
+
+
+
         function toggleNotification() {
             $('.notification-overlay').toggleClass('show');
         }
 
         function fetchNotifications() {
-    // AJAX request to get notifications
-    $.ajax({
-        type: 'POST',
-        url: './includes/fetchNotifications.php',
-        data: {
-            getNotifications: true,
-        },
-        success: function (response) {
-            // Parse the JSON response
-            var result = JSON.parse(response);
-
-            // Check if the status is "Success"
-            if (result.status === "Success") {
-                // Clear existing notifications
-                $('#notificationContent').empty();
-
-                // Iterate through notifications and append to the content
-                result.notifications.forEach(function (notification) {
-                    // Create HTML elements for each notification
-                    var notificationItem = $('<div class="notification-item">');
-                    notificationItem.append('<img src="' + notification.sender_img + '" alt="Sender Image">');
-                    var notificationDetails = $('<div class="notification-details">');
-                    notificationDetails.append('<p>' + notification.content + '</p>');
-                    var notificationButtons = $('<div class="notification-buttons">');
-                    notificationButtons.append('<button class="accept-btn">Accept</button>');
-                    notificationButtons.append('<button class="decline-btn">Decline</button>');
-                    notificationDetails.append(notificationButtons);
-                    notificationDetails.append('<small>' + notification.timestamp + '</small>');
-                    notificationItem.append(notificationDetails);
-
-                    // Append the notification to the content
-                    $('.notification-content').append(notificationItem);
-
-                    // Add click event listener to the "Accept" button
-                    notificationButtons.find('.accept-btn').on('click', function () {
-                        // Call the acceptMatch function with the necessary information
-                        acceptMatch(notification.sender, result.currentUser, notification.timestamp);
-                    });
-                });
-            } else {
-                // Handle the case where the user is not logged in
-                alert('User not logged in.');
-            }
-        },
-        error: function () {
-            alert('Error fetching notifications.');
+            $.ajax({
+                type: 'POST',
+                url: './includes/fetchNotifications.php',
+                data: {
+                    getNotifications: true,
+                },
+                success: function (response) {
+                    var result = JSON.parse(response);
+                    if (result.status === "Success") {
+                        $('#notificationContent').empty();
+                        result.notifications.forEach(function (notification) {
+                            var notificationItem = $('<div class="notification-item">');
+                            notificationItem.append('<img src="' + notification.sender_img + '" alt="Sender Image">');
+                            var notificationDetails = $('<div class="notification-details">');
+                            notificationDetails.append('<p>' + notification.content + '</p>');
+                            var notificationButtons = $('<div class="notification-buttons">');
+                            notificationButtons.append('<button class="accept-btn">Accept</button>');
+                            notificationButtons.append('<button class="decline-btn">Decline</button>');
+                            notificationDetails.append(notificationButtons);
+                            notificationDetails.append('<small>' + notification.timestamp + '</small>');
+                            notificationItem.append(notificationDetails);
+                            $('.notification-content').append(notificationItem);
+                            notificationButtons.find('.accept-btn').on('click', function () {
+                                acceptMatch(notification.sender, notification.receiver, notification.timestamp);
+                            });
+                        });
+                    } else {
+                        alert('User not logged in.');
+                    }
+                },
+                error: function () {
+                    alert('Error fetching notifications.');
+                }
+            });
         }
     });
-}
-    });
-    </script>
-
+</script>
 </head>
 <body>
     <div class="bg">

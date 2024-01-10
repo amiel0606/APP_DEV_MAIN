@@ -40,7 +40,6 @@ if (!isset($_SESSION["uID"])) {
             $stmt->close();
             ?>
 
-
     </div>
     <div class="up-for-adoption">
         <h2 class="up-for-adoption-title">Up For Adoption</h2>
@@ -62,9 +61,9 @@ if (!isset($_SESSION["uID"])) {
                     $stmtCount->close();
                     ?>
                     <div class="card">
-                        <img id="imageA" src="./uploads/<?php echo $rowAdoption['image']; ?>">
+                        <img class="imageA" src="./uploads/<?php echo $rowAdoption['image']; ?>">
                         <div class="card__content">
-                            <p class="card__title" id="name">Name: <?php echo $rowAdoption['name']; ?></p><br>
+                            <p class="card__title name">Name: <?php echo $rowAdoption['name']; ?></p><br>
                             <p class="card__description" id="breed">Breed: <?php echo $rowAdoption['breed']; ?></p><br>
                             <p class="card__description" id="age">Age: <?php echo $rowAdoption['age']; ?> </p><br>
                             <p class="card__description" id="weight">Weight: <?php echo $rowAdoption['weight']; ?> kg</p><br>
@@ -81,31 +80,7 @@ if (!isset($_SESSION["uID"])) {
             ?>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
-$(document).ready(function() {
-    $.ajax({
-        type: 'GET',
-        url: './includes/getFavoriteUser.php',
-        success: function(response) {
-            var dogs = response.split('\n');
-            dogs.forEach(function(dog, index) {
-                var data = dog.split(',');
-                $('#imageA').attr('src', './uploads/' + data[1]);
-                $('#name').text('Name: ' + data[2]);
-                $('#breed').text('Breed: ' + data[3]);
-                $('#age').text('Age: ' + data[4]);
-                $('#weight').text('Weight: ' + data[5] + ' kg');
-                $('#desc').text('Other Description: ' + data[6]);
-                $('#count').text('Added to Favorites By: ' + data[7] + ' users');
-            });
-        }
-    });
-});
 
-
-
-</script>
 <?php
 include_once('./includes/footer.php');
 ?>

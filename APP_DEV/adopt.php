@@ -1,13 +1,10 @@
 <?php
 include_once('./includes/header.php');
-
-// Check if the user is logged in
 if (!isset($_SESSION["uID"])) {
-    header("location: ./index.php?error=UserLoggedOut");
+    header("location: index.php?error=UserLoggedOut");
     exit();
     
 }
-
 ?>
     <div class="right-panel">
 
@@ -22,11 +19,11 @@ if (!isset($_SESSION["uID"])) {
         <p class="uploader-location">Location: City, Country</p>
         <p class="uploader-rating">Rating: 5 stars</p>
     </div>
-    <p class="dog-card__title">Name: <?php echo $row['name']; ?></p><br>
-    <p class="dog-card__description">Breed: <?php echo $row['breed']; ?></p><br>
-    <p class="dog-card__description">Age: <?php echo $row['age']; ?></p><br>
-    <p class="dog-card__description">Weight: <?php echo $row['weight']; ?> kg</p><br>
-    <p class="dog-card__description">Other Description: <?php echo $row['description']; ?></p>
+    <p class="dog-card__title">Name: </p><br>
+    <p class="dog-card__description">Breed: </p><br>
+    <p class="dog-card__description">Age: </p><br>
+    <p class="dog-card__description">Weight: kg</p><br>
+    <p class="dog-card__description">Other Description: </p>
 </div>      
             </div>
         </div>
@@ -51,7 +48,6 @@ if (!isset($_SESSION["uID"])) {
 
                     <label for="dogImage">Dog Image:</label>
                     <input type="file" name="dogImage">
-
 
                     <label for="dogName">Dog Name:</label>
                     <input type="text" name="dogName" required>
@@ -87,9 +83,7 @@ if (!isset($_SESSION["uID"])) {
 
     
     $(document).ready(function () {
-        // Load the initial dog on page load
         loadDog();
-
         $(".toggle-button").click(function () {
             $("#dogFormContainer").toggle();
         });
@@ -101,7 +95,41 @@ if (!isset($_SESSION["uID"])) {
         $(".information").click(function () {
         $(".dog-card__content").toggleClass("show-content");
     });
+    
+    function showPopup(message) {
+        $("#popup-message").text(message);
+        $("#popup-container").fadeIn();
+        setTimeout(function () {
+            $("#popup-container").fadeOut();
+        }, 3000);
+    }
 
+    function rejectDog() {
+    var currentDogID = $("#dog-card img").data("dogid");
+    $.ajax({
+        type: 'POST',
+        url: './includes/reject.php',
+        data: {
+            rejectDog: true,
+            dogID: currentDogID
+        },
+        success: function (response) {
+            if (response.trim() !== "") {
+                $("#dog-card").html(response);
+            } else {
+                $("#dog-card").html('<img src="./image/defaultDoggo.png" alt="Default Dog Image">' +
+                    '<div class="dog-card__content">' +
+                    '<p class="dog-card__title">No Dog Available</p>' +
+                    '<p class="dog-card__description">Check back later to find more buddies!</p>' +
+                    '</div>');
+                $("#popup-close").off("click");
+            }
+        },
+        error: function () {
+            alert('Error rejecting dog.');
+        }
+    });
+}
 
         $(".reject-button").click(function () {
             rejectDog();
@@ -118,11 +146,8 @@ if (!isset($_SESSION["uID"])) {
         },
         success: function (response) {
             console.log("addToFavorites.php response:", response);
-
             if (response.trim() === "DogAdded") {
-                // Dog added to favorites successfully, show the popup
                 showPopup("Dog Added to Favorites");
-
                 $.ajax({    
                     type: 'POST',
                     url: './includes/fetchNewDog.php',
@@ -131,7 +156,6 @@ if (!isset($_SESSION["uID"])) {
                         if (newDogResponse.trim() !== "No more dogs available.") {
                             $("#dog-card").html(newDogResponse);
                         } else {
-                            // Handle the case when there are no more dogs available
                             $("#dog-card").html('<img src="./image/defaultDoggo.png" alt="Default Dog Image">' +
                                 '<div class="dog-card__content">' +
                                 '<p class="dog-card__title">No Dog Available</p>' +
@@ -144,19 +168,13 @@ if (!isset($_SESSION["uID"])) {
                     }
                 });
             } else if (response.trim() === "DogAlreadyInFavorites") {
-                // Dog is already in favorites, show the alert for debugging
                 alert('This dog is already in your favorites.');
-                
-                // Proceed to fetch the next dog
                 fetchNextDog();
             } else if (response.trim() === "ErrorAddingDog") {
-                // Handle the case when there is an error adding the dog to favorites
                 alert('Error adding dog to favorites.');
             } else if (response.trim() === "NoDogFound") {
-                // Handle the case when no dog is found
                 alert('No dog found.');
             } else {
-                // Handle other cases if needed
                 alert('Unexpected response.');
             }
         },
@@ -166,30 +184,22 @@ if (!isset($_SESSION["uID"])) {
     });
 });
 
-
-
 $(".paw-button").click(function () {
-    // Get the dog ID from the currently displayed dog
     var dogID = $("#dog-card img").data("dogid");
-    
-    // Make an AJAX request to add a notification to the database
     $.ajax({
         type: 'POST',
-        url: './includes/addNotification.php', // Change this URL to the actual URL handling the notification addition
+        url: './includes/addNotification.php',
         data: { 
             addNotification: true,
             dogID: dogID
         },
         success: function (response) {
             console.log("addNotification.php response:", response);
-
             if (response.trim() === "NotificationAdded") {
-                // Notification added successfully, show the popup
                 showPopup("Match request with dog successfully sent!");
-
-                // Optionally, you can perform additional actions after a successful notification, if needed.
+                rejectDog();
+                loadDog();
             } else {
-                // Handle other cases if needed
                 alert('Unexpected response while adding notification.');
             }
         },
@@ -199,14 +209,8 @@ $(".paw-button").click(function () {
     });
 });
 
-
-
-
-
-
-
-    });
-
+//end of document ready
+});
     function loadDog() {
     $.ajax({
         type: 'GET',
@@ -221,37 +225,6 @@ $(".paw-button").click(function () {
 }
 
 
-function rejectDog() {
-    var currentDogID = $("#dog-card img").data("dogid");
-    $.ajax({
-        type: 'POST',
-        url: './includes/reject.php',
-        data: {
-            rejectDog: true,
-            dogID: currentDogID
-        },
-        success: function (response) {
-            if (response.trim() !== "") {
-                showPopup("Dog rejected, you won't see him again :(");
-                $("#dog-card").html(response);
-            } else {
-                // Handle the case when there are no more dogs available
-                $("#dog-card").html('<img src="./image/defaultDoggo.png" alt="Default Dog Image">' +
-                    '<div class="dog-card__content">' +
-                    '<p class="dog-card__title">No Dog Available</p>' +
-                    '<p class="dog-card__description">Check back later to find more buddies!</p>' +
-                    '</div>');
-                // Remove the click event on the popup-close button to prevent it from working
-                $("#popup-close").off("click");
-            }
-        },
-        error: function () {
-            alert('Error rejecting dog.');
-        }
-    });
-}
-
-
 function fetchNextDog() {
     $.ajax({
         type: 'POST',
@@ -261,7 +234,6 @@ function fetchNextDog() {
             if (newDogResponse.trim() !== "No more dogs available.") {
                 $("#dog-card").html(newDogResponse);
             } else {
-                // Handle the case when there are no more dogs available
                 $("#dog-card").html('<img src="./image/defaultDoggo.png" alt="Default Dog Image">' +
                     '<div class="dog-card__content">' +
                     '<p class="dog-card__title">No Dog Available</p>' +
@@ -275,18 +247,10 @@ function fetchNextDog() {
     });
 }
 
-    function showPopup(message) {
-        $("#popup-message").text(message);
-        $("#popup-container").fadeIn();
-        setTimeout(function () {
-            $("#popup-container").fadeOut();
-        }, 3000);
-    }
-
-    // Close popup on click
     $("#popup-close").click(function () {
         $("#popup-container").fadeOut();
     });
+
 </script>
 
 
