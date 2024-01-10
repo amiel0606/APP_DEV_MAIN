@@ -1,11 +1,10 @@
 <?php 
 include_once('./includes/header.php');
 if (!isset($_SESSION["uID"])) {
-    header("location: ./index.php?error=UserLoggedOut");
+    header("location: index.php?error=UserLoggedOut");
     exit();
 }
 ?>  
-
 
 <!-- DIV CONTACTS -->
 <div id="rectangle_message">

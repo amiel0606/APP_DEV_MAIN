@@ -14,27 +14,45 @@ if (isset($_POST['addDog'])) {
     if (in_array($fileActualExtension, $allowed)) {
         if ($fileError === 0) {
             if ($fileSize < 500000) {
-                $newFileName = uniqid('', true).'.'.$fileActualExtension;
-                $fileDestination = '../uploads/'.$newFileName;
+                $newFileName = uniqid('', true) . '.' . $fileActualExtension;
+                $fileDestination = '../uploads/' . $newFileName;
+
+                // Move the uploaded file to the destination
                 move_uploaded_file($fileTmpName, $fileDestination);
-                $sql = "INSERT INTO tbldogs(username, name, breed, age, description, weight, image) VALUES(?, ?, ?, ?, ?, ?, ?)";
+
+                // Prepare the SQL statement for inserting a new dog
+                $sql = "INSERT INTO tbldogs(username, name, breed, age, description, weight, image) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 $stmt = mysqli_stmt_init($conn);
+
                 if (!mysqli_stmt_prepare($stmt, $sql)) {
                     echo '<script>alert("SQL Error");</script>';
                     header("location: ../adopt.php?error=stmtFailed");
                     exit();
                 }
 
+                // Retrieve user information from the session
                 $dogName = $_POST['dogName'];
                 $dogBreed = $_POST['breed'];
                 $dogAge = $_POST['age'];
                 $dogDescription = $_POST['description'];
                 $dogWeight = $_POST['weight'];
-                $UserN = $_SESSION['username'];
+                $userN = $_SESSION['username'];
 
-                mysqli_stmt_bind_param($stmt, "sssssss", $UserN, $dogName, $dogBreed, $dogAge, $dogDescription, $dogWeight, $newFileName);
+                // Bind parameters and execute the statement
+                mysqli_stmt_bind_param($stmt, "sssssss", $userN, $dogName, $dogBreed, $dogAge, $dogDescription, $dogWeight, $newFileName);
                 mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
+
+                // Update dogsForAdoption in tblusers
+                $updateUserSql = "UPDATE tblusers SET dogsForAdoption = dogsForAdoption + 1 WHERE username = ?";
+                $stmtUpdateUser = mysqli_stmt_init($conn);
+
+                if (mysqli_stmt_prepare($stmtUpdateUser, $updateUserSql)) {
+                    mysqli_stmt_bind_param($stmtUpdateUser, "s", $userN);
+                    mysqli_stmt_execute($stmtUpdateUser);
+                    mysqli_stmt_close($stmtUpdateUser);
+                }
+
                 echo '<script>alert("Dog added successfully");</script>';
                 header("location: ../adopt.php?SuccessfullyAdded");
             } else {
