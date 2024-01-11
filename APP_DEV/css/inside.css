@@ -114,10 +114,10 @@
 
 .info {
     width: 25px; 
-    height: 27px; 
+    height: 25px; 
     padding-left: 2px;
     padding-top: 6px;
-    border-radius: 35%;
+    border-radius: 100%;
     overflow: hidden;
     background-color: #fff;
 }
@@ -125,6 +125,7 @@
 .info:hover {
     background-color: #949092;
     color: #000000;
+    cursor: pointer;
 }
 
 .info img {
