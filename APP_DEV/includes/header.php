@@ -100,45 +100,74 @@
         }
 
         function fetchNotifications() {
-            $.ajax({
-                type: 'POST',
-                url: './includes/fetchNotifications.php',
-                data: {
-                    getNotifications: true,
-                },
-                success: function (response) {
-                    var result = JSON.parse(response);
-                    if (result.status === "Success") {
-                        $('.notification-content').empty();
-                        result.notifications.forEach(function (notification) {
-                            var notificationItem = $('<div class="notification-item">');
-                            notificationItem.append('<img src="' + notification.sender_img + '" alt="Sender Image">');
-                            var notificationDetails = $('<div class="notification-details">');
-                            notificationDetails.append('<p>' + notification.content + '</p>');
-                            var notificationButtons = $('<div class="notification-buttons">');
-                            notificationButtons.append('<button class="accept-btn">Accept</button>');
-                            notificationButtons.append('<button class="decline-btn">Decline</button>');
-                            notificationDetails.append(notificationButtons);
-                            notificationDetails.append('<small>' + notification.timestamp + '</small>');
-                            notificationItem.append(notificationDetails);
-                            $('.notification-content').append(notificationItem);
-                            notificationButtons.find('.accept-btn').on('click', function () {
-                                acceptMatch(notification.sender, notification.receiver, notification.timestamp);
-                            });
-                            notificationButtons.find('.decline-btn').on('click', function () {
-                                console.log(notification.sender, notification.receiver, notification.timestamp);
-                                declineMatch(notification.sender, notification.receiver, notification.timestamp);
-                            });
+    $.ajax({
+        type: 'POST',
+        url: './includes/fetchNotifications.php',
+        data: {
+            getNotifications: true,
+        },
+        success: function (response) {
+            var result = JSON.parse(response);
+
+            console.log(result.notifications);
+            $('.notification-content').empty(); // Clear existing content
+
+            if (result.status === "Success") {
+                if (result.notifications.length === 0) {
+                    // Display a styled message when there are no notifications
+                    $('.notification-content').append('<div class="no-notifications-message">You\'re all caught up! No new notifications.</div>');
+                } else {
+                    result.notifications.forEach(function (notification) {
+                        var notificationItem = $('<div class="notification-item">');
+
+                        var senderImage = $('<img src="' + notification.sender_img + '" alt="Sender Image">');
+                        notificationItem.append(senderImage);
+
+                        var notificationDetails = $('<div class="notification-details">');
+                        notificationDetails.append('<p>' + notification.content + '</p>');
+
+                        // Include sender information in a div with a custom class
+                        var senderInfo = $('<div class="custom-sender-info">');
+                        senderInfo.append('<p>Name: ' + notification.sender_fname + ' ' + notification.sender_lname + '</p>');
+                        senderInfo.append('<p>City: ' + notification.sender_city + '</p>');
+                        senderInfo.append('<p>Dogs Adopted: ' + notification.sender_dogsAdopted + '</p>');
+                        senderInfo.append('<p>Dogs For Adoption: ' + notification.sender_dogsForAdoption + '</p>');
+                        senderInfo.append('<p>Rating: ' + notification.sender_rating + ' stars</p>');
+                        notificationDetails.append(senderInfo);
+
+                        var notificationButtons = $('<div class="notification-buttons">');
+                        notificationButtons.append('<button class="accept-btn">Accept</button>');
+                        notificationButtons.append('<button class="decline-btn">Decline</button>');
+
+                        notificationDetails.append(notificationButtons);
+                        notificationDetails.append('<small>' + notification.timestamp + '</small>');
+                        notificationItem.append(notificationDetails);
+
+                        $('.notification-content').append(notificationItem);
+
+                        // Attach click event handlers
+                        notificationButtons.find('.accept-btn').on('click', function () {
+                            acceptMatch(notification.sender, notification.receiver, notification.timestamp);
                         });
-                    } else {
-                        alert('User not logged in.');
-                    }
-                },
-                error: function () {
-                    alert('Error fetching notifications.');
+                        notificationButtons.find('.decline-btn').on('click', function () {
+                            console.log(notification.sender, notification.receiver, notification.timestamp);
+                            declineMatch(notification.sender, notification.receiver, notification.timestamp);
+                        });
+                    });
                 }
-            });
+            } else {
+                alert('User not logged in.');
+            }
+        },
+        error: function () {
+            alert('Error fetching notifications.');
         }
+    });
+}
+
+
+
+
     });
 </script>
 </head>
@@ -174,5 +203,6 @@
             <div class="notification-content">
                 <!-- Your notification content goes here -->
                 <p>Notifications</p>
+              
             </div>
         </div>

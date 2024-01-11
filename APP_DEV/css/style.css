@@ -567,8 +567,8 @@ body {
 }
 
 .notification-item img {
-    width: 150px; /* Set a specific width for the image */
-    height: 150px; /* Set a specific height for the image */
+    width: 175px; /* Set a specific width for the image */
+    height: 175px; /* Set a specific height for the image */
     border-radius: 50%; /* Make the image circular */
     margin-right: 10px; /* Add some spacing between the image and text */
 }
@@ -597,6 +597,19 @@ body {
 	
 }
 
+.no-notifications-message {
+    text-align: center;
+    margin-top: 250px;
+    font-size: 16px;
+    color: #555; /* Choose a color that fits your design */
+}
+
+.custom-sender-info {
+	position: relative;
+    background-color: #fff; /* Add a background color if needed */
+    padding: 10px; /* Add padding for better styling */
+}
+
 .accept-btn,
 .decline-btn {
     height: 40px;
@@ -607,10 +620,9 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-	margin-top: 20px;
+	top: -100px;
     margin-right: 10px; 
-	margin-left: 100px;
-	margin-bottom: 40px;/* Add a margin between the buttons */
+	margin-left: 150px;
 }
 
 .decline-btn {
