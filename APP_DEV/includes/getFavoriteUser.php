@@ -2,7 +2,7 @@
 session_start();
 include_once 'dbCon.php';
 
-$UserN = $_SESSION['username']; // the current user
+$UserN = $_SESSION['username'];
 
 // Fetch dogs put up for adoption by the current user
 $sqlAdoption = "SELECT a.dogID, a.image, a.name, a.breed, a.age, a.weight, a.description FROM tbldogs a WHERE a.username = ?";
@@ -33,4 +33,3 @@ if ($resultAdoption->num_rows > 0) {
 $stmtAdoption->close();
 
 echo trim($output);
-?>

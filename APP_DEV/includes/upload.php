@@ -1,7 +1,6 @@
 <?php
 session_start();
 include_once 'dbCon.php';
-
 if (isset($_POST['addDog'])) {
     $file = $_FILES['dogImage'];
     $fileName = $_FILES['dogImage']['name'];
@@ -12,7 +11,6 @@ if (isset($_POST['addDog'])) {
     $fileExtension = explode('.', $fileName);
     $fileActualExtension = strtolower(end($fileExtension));
     $allowed = array('jpeg', 'jpg', 'png');
-
     if (in_array($fileActualExtension, $allowed)) {
         if ($fileError === 0) {
             if ($fileSize < 500000) {
@@ -73,4 +71,3 @@ if (isset($_POST['addDog'])) {
         exit();
     }
 }
-?>

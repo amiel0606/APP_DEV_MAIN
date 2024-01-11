@@ -46,12 +46,6 @@
     });
 
     function acceptMatch(receiver, sender, timestamp) {
-    // Log the data
-    console.log({
-        sender: sender,
-        receiver: receiver,
-        timestamp: timestamp
-    });
     $.ajax({
         type: 'POST',
         url: './includes/acceptMatch.php',
@@ -65,6 +59,7 @@
             var result = JSON.parse(response);
             if (result.status === "Success") {
                 alert('Match accepted successfully.');
+                fetchNotifications(); // Refresh notifications after accepting a match
             } else {
                 alert('Unexpected response while accepting match.');
             }
@@ -74,7 +69,6 @@
         }
     });
 }
-
 
 
         function toggleNotification() {
@@ -91,7 +85,7 @@
                 success: function (response) {
                     var result = JSON.parse(response);
                     if (result.status === "Success") {
-                        $('#notificationContent').empty();
+                        $('.notification-content').empty();
                         result.notifications.forEach(function (notification) {
                             var notificationItem = $('<div class="notification-item">');
                             notificationItem.append('<img src="' + notification.sender_img + '" alt="Sender Image">');
