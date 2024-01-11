@@ -114,7 +114,7 @@ input {
 }
 
 .up-for-adoption {
-    margin-top: 40px;
+    margin-top: 20px;
     display: flex;
     height: auto;
     width: auto;
@@ -123,6 +123,7 @@ input {
 
 .up-for-adoption h2 {
     margin-right: 40px;
+    color: #564f8a;
 }
 
 .up-for-adoption img {
@@ -132,10 +133,10 @@ input {
 }
 
 .up-for-adoption .card {
-    margin-top: 100px;
+    margin-top: 70px;
     position: relative;
-    width: 330px;
-    height: 420px;
+    width: 360px;
+    height: 430px;
     background-color: #f2f2f2;
     border-radius: 10px;
     display: flex;
@@ -146,19 +147,13 @@ input {
     perspective: 1000px;
     box-shadow: 0 0 0 5px #ffffff80;
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    left: -310px;
+    left: -260px;
 }
 
 .up-for-adoption .card img {
     width: 330px;
-    height: 420px;
-    fill: #333;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.up-for-adoption .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+    height: 350px;
+    fill: #333;;
 }
 
 .up-for-adoption .card__content {
@@ -170,13 +165,7 @@ input {
     padding: 20px;
     box-sizing: border-box;
     background-color: #f2f2f2;
-    transform: rotateX(-90deg);
-    transform-origin: bottom;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.up-for-adoption .card:hover .card__content {
-    transform: rotateX(0deg);
+    display: none;
 }
 
 .up-for-adoption .card__title {
@@ -186,13 +175,36 @@ input {
     font-weight: 700;
 }
 
-.up-for-adoption .card:hover img {
-    scale: 0;
-}
-
 .up-for-adoption .card__description {
     margin: 10px 0 0;
     font-size: 14px;
     color: #777;
     line-height: 1.4;
+}
+.info_button1 {
+    position: absolute;
+    top: 1px;
+    right: 4px;
+    display: flex;
+}
+
+.info1 {
+    width: 25px; 
+    height: 27px; 
+    padding-left: 2px;
+    padding-top: 6px;
+    border-radius: 35%;
+    background-color: #fff;
+}
+
+.info1:hover {
+    background-color: #949092;
+    color: #000000;
+}
+.up-for-adoption .info1 img {
+    width: 150%;
+    height: auto; 
+}
+.up-for-adoption .card__content.show_content {
+    display: block;
 }

@@ -12,7 +12,6 @@ $dogID = $_GET['dogID'];
 $stmt = $conn->prepare("SELECT * FROM tblmessages WHERE (sender = ? AND receiver = ? AND dogID = ?) OR (sender = ? AND receiver = ? AND dogID = ?) ORDER BY timestamp ASC");
 $stmt->bind_param("ssssss", $loggedInUser, $ownerUser, $dogID, $ownerUser, $loggedInUser, $dogID);
 $stmt->execute();
-
 $result = $stmt->get_result();
 
 while ($row = $result->fetch_assoc()) {
@@ -21,4 +20,3 @@ while ($row = $result->fetch_assoc()) {
     echo '<p><strong>' . htmlspecialchars($row['sender']) . ':</strong> ' . htmlspecialchars($row['message']) . '</p>';
     echo '</div>';
 }
-?>

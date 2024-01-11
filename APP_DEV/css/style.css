@@ -1,4 +1,4 @@
-
+Angelo Zulueta
 h2{ letter-spacing: 5px;}
 
 :root{
@@ -40,7 +40,12 @@ body {
 }
 
 .nav-link{
-	background-color: #fec7d7;
+	background: rgba( 187, 156, 192, 0.85 );
+	box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+	backdrop-filter: blur( 0px );
+	-webkit-backdrop-filter: blur( 0px );
+	border-radius: 10px;
+	border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
 
 .nav{
@@ -82,7 +87,7 @@ body {
 
 .bg .nav-link .notif-clickable {
     position: absolute;
-    left: 1160px; /* Adjust the left position as needed */
+    left: 1160px;
     float: right;
     justify-content: space-between;
     align-items: center;

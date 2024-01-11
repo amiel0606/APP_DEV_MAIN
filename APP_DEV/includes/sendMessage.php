@@ -9,7 +9,6 @@ include_once 'dbCon.php';
     $sender = $_SESSION['username'];
     $dogID = $_POST['dogID'];
 
-    echo $ownerUser . " " . $dogID . " " . $message . " " . $sender;
     $stmt = $conn->prepare("INSERT INTO tblmessages (sender, receiver, message, dogID, seen, received, timestamp) VALUES (?, ?, ?, ?, 0, 0, NOW())");
     $stmt->bind_param("ssss", $sender, $ownerUser, $message, $dogID);
     $stmt->execute();
