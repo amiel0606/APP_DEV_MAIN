@@ -94,6 +94,27 @@ if (!isset($_SESSION["uID"])) {
         $(".dog-card__content").toggleClass("show-content");
     });
     
+    $(document).keydown(function (e) {
+        // Check which key is pressed and trigger the corresponding function
+        switch (e.which) {
+            case 37: // Left arrow key
+                rejectDog();
+                showPopup("Dog Rejected... You won't see them again :((");
+                break;
+            case 38: // Up arrow key
+                $("#change-image").click();
+                break;
+            case 39: // Right arrow key
+                $(".paw-button").click();
+                break;
+            case 40: // Down arrow key
+                $(".information").click();
+                break;
+            default:
+                // Do nothing for other keys
+        }
+    });
+
     function showPopup(message) {
         $("#popup-message").text(message);
         $("#popup-container").fadeIn();
@@ -206,7 +227,7 @@ $(".paw-button").click(function () {
     });
 });
 
-//end of document ready
+
 });
     function loadDog() {
     $.ajax({

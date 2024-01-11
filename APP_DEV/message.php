@@ -19,7 +19,7 @@ if (!isset($_SESSION["uID"])) {
 
 <!-- MESSAGING WINDOW -->
 <div id="rectangle_convo">
-    <div id="messages" >
+    <div id="messages">
         <!-- Messages will be inserted here by JavaScript -->
     </div>
     <div id="details">
@@ -29,6 +29,21 @@ if (!isset($_SESSION["uID"])) {
     </div>
 
     <div class="inputbox">
+        <!-- Add the initially hidden "Rate User" button -->
+        <button id="rateUserBtn" style="display: none;" onclick="toggleRatingOverlay()">
+            🐾 Rate User
+        </button>
+
+        <!-- Add the overlay for ratings -->
+        <div id="ratingOverlay" style="display: none;">
+            <p>Click to rate:</p>
+            <div class="rating-option" onclick="rateUser(1)">⭐</div>
+            <div class="rating-option" onclick="rateUser(2)">⭐⭐</div>
+            <div class="rating-option" onclick="rateUser(3)">⭐⭐⭐</div>
+            <div class="rating-option" onclick="rateUser(4)">⭐⭐⭐⭐</div>
+            <div class="rating-option" onclick="rateUser(5)">⭐⭐⭐⭐⭐</div>
+        </div>
+
         <div id="ownerUserDiv" data-owneruser="someUser" style="display: none;" data-dogid="haha"></div>
         <input id="message_input" type="text" style="display: none;">
         <button id="sendbtn" style="display: none;" onclick="sendMessage(this)">
@@ -66,23 +81,55 @@ $.ajax({
     });
 });
 
+function toggleRatingOverlay() {
+    // Toggle the visibility of the rating overlay
+    $('#ratingOverlay').toggle();
+}
+
+
+function rateUser(rating) {
+    // Get the values from the ownerUserDiv
+    var ratedUser = $('#ownerUserDiv').data('owneruser');
+
+    // Call the rateUserAjax function with the obtained values
+    rateUserAjax(ratedUser, rating);
+}
+
+function rateUserAjax(ratedUser, rating) {
+    $.ajax({
+        url: './includes/rateUser.php',
+        type: 'POST',
+        data: { ratedUser: ratedUser, rating: rating },
+        success: function (response) {
+            console.log(response);
+            // Handle the response if needed
+        },
+        error: function (error) {
+            console.error('Error rating user:', error);
+        }
+    });
+}
+
 function handleClick(element) {
     var user = element.getAttribute('data-owneruser');
     var dogID = element.getAttribute('data-dogid');
     var messagesDiv = document.getElementById('messages');
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;    
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
-        $.ajax({
-            url: './includes/getConversation.php',
-            type: 'GET',
-            data: { user: user, dogID: dogID },
-            success: function (response) {
-                var messagesDiv = document.getElementById('messages');
-                messagesDiv.innerHTML = response;
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
-                $('#details').show();
-            }
-        });
+    $.ajax({
+        url: './includes/getConversation.php',
+        type: 'GET',
+        data: { user: user, dogID: dogID },
+        success: function (response) {
+            var messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML = response;
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            $('#details').show();
+
+            // Show the "Rate User" button when a user is selected
+            $('#rateUserBtn').show();
+        }
+    });
 
     $('#ownerUserDiv').data('owneruser', user);
     $('#ownerUserDiv').data('dogid', dogID);
