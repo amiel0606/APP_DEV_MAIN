@@ -23,9 +23,7 @@ if (!isset($_SESSION["uID"])) {
         <!-- Messages will be inserted here by JavaScript -->
     </div>
     <div id="details">
-        <div id="text">
-            <button id="off" style="position: absolute; top: 0; right: 0; cursor: pointer;">X</button>
-        </div>
+
     </div>
 
     <div class="inputbox">
@@ -55,21 +53,24 @@ if (!isset($_SESSION["uID"])) {
 
 <!-- JAVASCRIPT FOR THIS PAGE -->
 <script>
+    $(document).on('click', '#off', function(e) {
+    console.log('Clicked on X button');
+    console.log(typeof jQuery);
+    $('.details').hide();
+    $('#details').hide();
+    $('#text').hide();
+    e.preventDefault();
+});
 $(document).ready(function() {
     $('#message_input').hide();
+    $('#details').hide();
     $('#sendbtn').hide();
     $('#message_input').on('keypress', function(e) {
-    if (e.keyCode === 13) {
-        sendMessage();
-        e.preventDefault();
+        if (e.keyCode === 13) {
+            sendMessage();
+            e.preventDefault();
     }
-    $('#off').click(function(){
-        $('#details').hide();
-        $('#text').hide();
-    });
 });
-
-
 
 $.ajax({
     url: './includes/getContacts.php',
@@ -114,8 +115,8 @@ function handleClick(element) {
     var user = element.getAttribute('data-owneruser');
     var dogID = element.getAttribute('data-dogid');
     var messagesDiv = document.getElementById('messages');
-    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-
+    var detailsDiv = document.getElementById('details');
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;    
     $.ajax({
         url: './includes/getConversation.php',
         type: 'GET',
@@ -125,12 +126,25 @@ function handleClick(element) {
             messagesDiv.innerHTML = response;
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
             $('#details').show();
-
-            // Show the "Rate User" button when a user is selected
             $('#rateUserBtn').show();
         }
     });
 
+
+            $.ajax({
+                url: './includes/getDogDetails.php',
+                type: 'GET',
+                data: { dogID: dogID },
+                success: function (response) {
+                    var detailsDiv = document.getElementById('details');
+                    detailsDiv.innerHTML = response;
+                    $('#details').show();
+                    $('#text').show();
+                    $('#text').text(user + ' - ' + dogID);
+                }
+            });
+        }
+    });
     $('#ownerUserDiv').data('owneruser', user);
     $('#ownerUserDiv').data('dogid', dogID);
     $('#ownerUserDiv').text(user + ' - ' + dogID);
@@ -158,7 +172,10 @@ function sendMessage() {
     $('#message_input').val('');
 }
 
-
+$('#sendbtn').on('click', function(e) {
+        sendMessage();
+        e.preventDefault();
+    });
 
 </script>
 <!-- END OF JAVASCRIPT FOR THIS PAGE -->
