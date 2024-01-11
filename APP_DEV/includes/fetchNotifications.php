@@ -12,10 +12,10 @@ if (isset($_POST["getNotifications"])) {
     }
     $receiver = $_SESSION["username"];
     $fetchQuery = "SELECT n.*, u.fname AS sender_fname, u.lname AS sender_lname, u.img AS sender_img, d.name AS dog_name
-                    FROM tblnotifications n
-                    INNER JOIN tblusers u ON n.sender = u.username
-                    INNER JOIN tbldogs d ON n.dogID = d.dogID
-                    WHERE n.receiver = ? AND n.type = 'Match Request' ORDER BY n.timestamp DESC";
+    FROM tblnotifications n
+    INNER JOIN tblusers u ON n.sender = u.username
+    INNER JOIN tbldogs d ON n.dogID = d.dogID
+    WHERE n.receiver = ? AND n.type = 'Match Request' ORDER BY n.timestamp DESC";
     $stmtFetch = $conn->prepare($fetchQuery);
     $stmtFetch->bind_param("s", $receiver);
     $stmtFetch->execute();

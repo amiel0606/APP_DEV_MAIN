@@ -18,28 +18,28 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `dbusers`
+-- Database: dbusers
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbldogs`
+-- Table structure for table tbldogs
 --
 
-CREATE TABLE `tbldogs` (
-  `username` varchar(255) NOT NULL,
-  `dogID` int(100) NOT NULL,
-  `name` varchar(100) NOT NULL DEFAULT 'No Name Yet',
-  `breed` varchar(255) NOT NULL DEFAULT 'Unknown Breed',
-  `age` varchar(50) NOT NULL DEFAULT 'Undefined',
-  `description` varchar(500) NOT NULL DEFAULT 'No Description Given',
-  `weight` varchar(5) NOT NULL DEFAULT 'N/A',
-  `image` varchar(255) NOT NULL
+CREATE TABLE tbldogs (
+  username varchar(255) NOT NULL,
+  dogID int(100) NOT NULL,
+  name varchar(100) NOT NULL DEFAULT 'No Name Yet',
+  breed varchar(255) NOT NULL DEFAULT 'Unknown Breed',
+  age varchar(50) NOT NULL DEFAULT 'Undefined',
+  description varchar(500) NOT NULL DEFAULT 'No Description Given',
+  weight varchar(5) NOT NULL DEFAULT 'N/A',
+  image varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tbldogs`
+-- Dumping data for table tbldogs
 --
 
 INSERT INTO `tbldogs` (`username`, `dogID`, `name`, `breed`, `age`, `description`, `weight`, `image`) VALUES
@@ -51,24 +51,24 @@ INSERT INTO `tbldogs` (`username`, `dogID`, `name`, `breed`, `age`, `description
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblfavorites`
+-- Table structure for table tblfavorites
 --
 
-CREATE TABLE `tblfavorites` (
-  `ownerUser` varchar(255) NOT NULL,
-  `uploader` varchar(255) NOT NULL,
-  `dogID` int(100) NOT NULL,
-  `dogName` varchar(100) NOT NULL,
-  `dogImage` varchar(255) NOT NULL,
-  `dogBreed` varchar(255) NOT NULL,
-  `dogAge` varchar(255) NOT NULL,
-  `dogDescription` varchar(255) NOT NULL,
-  `dogWeight` varchar(5) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+CREATE TABLE tblfavorites (
+  ownerUser varchar(255) NOT NULL,
+  uploader varchar(255) NOT NULL,
+  dogID int(100) NOT NULL,
+  dogName varchar(100) NOT NULL,
+  dogImage varchar(255) NOT NULL,
+  dogBreed varchar(255) NOT NULL,
+  dogAge varchar(255) NOT NULL,
+  dogDescription varchar(255) NOT NULL,
+  dogWeight varchar(5) NOT NULL,
+  timestamp timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tblfavorites`
+-- Dumping data for table tblfavorites
 --
 
 INSERT INTO `tblfavorites` (`ownerUser`, `uploader`, `dogID`, `dogName`, `dogImage`, `dogBreed`, `dogAge`, `dogDescription`, `dogWeight`, `timestamp`) VALUES
@@ -105,9 +105,7 @@ CREATE TABLE `tblmatch` (
 -- --------------------------------------------------------
 
 --
-
 -- Table structure for table tblmatch
-
 --
 
 CREATE TABLE `tblmessages` (
@@ -184,68 +182,51 @@ CREATE TABLE `tblrejectedusers` (
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tblnotifications`
---
-
-INSERT INTO `tblnotifications` (`notificationID`, `sender`, `receiver`, `type`, `message`, `timestamp`, `dogID`) VALUES
-(4, 'Renki', 'Ferrer1515', 'Match Request', 'Match request with dog successfully sent!', '2023-12-15 14:08:16', 5),
-(5, 'Renz', 'Ferrer1515', 'Match Request', 'Match request with dog successfully sent!', '2023-12-15 19:53:47', 5),
-(6, 'deCarte', 'Ferrer1515', 'Match Request', 'Match request with dog successfully sent!', '2023-12-15 19:59:50', 5),
-(7, 'Ryujin', 'Ferrer1515', 'Match Request', 'Match request with dog successfully sent!', '2023-12-15 20:00:20', 5);
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblrejecteddogs`
+-- Table structure for table tblrejecteddogs
 --
 
-CREATE TABLE `tblrejecteddogs` (
-  `username` varchar(255) NOT NULL,
-  `dogID` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tblrejecteddogs`
---
-
-INSERT INTO `tblrejecteddogs` (`username`, `dogID`) VALUES
-('Ryujin', 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tblrejectedusers`
---
-
-CREATE TABLE `tblrejectedusers` (
-  `username` varchar(255) NOT NULL,
-  `RejectedUser` varchar(255) NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+CREATE TABLE tblrejecteddogs (
+  username varchar(255) NOT NULL,
+  dogID int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tblusers`
+-- Table structure for table tblrejectedusers
 --
 
-CREATE TABLE `tblusers` (
-  `Status` varchar(10) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `img` varchar(255) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `city` varchar(100) NOT NULL,
-  `fname` varchar(100) NOT NULL,
-  `lname` varchar(100) NOT NULL,
-  `dogsAdopted` int(11) NOT NULL DEFAULT 0,
-  `dogsForAdoption` int(11) NOT NULL,
-  `Rating` int(11) NOT NULL DEFAULT 0,
-  `uID` int(11) NOT NULL
+CREATE TABLE tblrejectedusers (
+  username varchar(255) NOT NULL,
+  RejectedUser varchar(255) NOT NULL,
+  timestamp timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table tblusers
+--
+
+CREATE TABLE tblusers (
+  Status varchar(10) NOT NULL,
+  username varchar(255) NOT NULL,
+  img varchar(255) NOT NULL,
+  password varchar(100) NOT NULL,
+  city varchar(100) NOT NULL,
+  fname varchar(100) NOT NULL,
+  lname varchar(100) NOT NULL,
+  dogsAdopted int(11) NOT NULL DEFAULT 0,
+  dogsForAdoption int(11) NOT NULL,
+  Rating int(11) NOT NULL DEFAULT 0,
+  uID int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tblusers`
+-- Dumping data for table tblusers
 --
 
 INSERT INTO `tblusers` (`Status`, `username`, `img`, `password`, `city`, `fname`, `lname`, `dogsAdopted`, `dogsForAdoption`, `Rating`, `uID`) VALUES
@@ -269,26 +250,15 @@ INSERT INTO `tblusers` (`Status`, `username`, `img`, `password`, `city`, `fname`
 --
 
 --
-
--- Indexes for table `tbldogs`
+-- Indexes for table tblmatch
 --
-ALTER TABLE `tbldogs`
-  ADD PRIMARY KEY (`dogID`),
-  ADD KEY `username` (`username`),
-  ADD KEY `idx_dogID` (`dogID`);
-
---
--- Indexes for table `tblfavorites`
---
-ALTER TABLE `tblfavorites`
-  ADD PRIMARY KEY (`ownerUser`,`dogID`),
-  ADD KEY `FK_dog_favorite` (`dogID`);
+ALTER TABLE tblmatch
+  ADD PRIMARY KEY (matchID),
+  ADD KEY interestedUser (interestedUser),
+  ADD KEY uploader (uploader),
+  ADD KEY dogID (dogID);
 
 --
--- Indexes for table `tblmatch`
---
---
-
 -- Indexes for table `tblmatch`
 --
 --
@@ -317,32 +287,31 @@ ALTER TABLE `tblnotifications`
   ADD KEY `FK_dog_notification` (`dogID`);
 
 --
--- Indexes for table `tblnotifications`
+-- Indexes for table tblnotifications
 --
-ALTER TABLE `tblnotifications`
-  ADD PRIMARY KEY (`notificationID`),
-  ADD KEY `FK_dog_notification` (`dogID`);
+ALTER TABLE tblnotifications
+  ADD PRIMARY KEY (notificationID);
 
 --
--- Indexes for table `tblrejecteddogs`
+-- Indexes for table tblrejecteddogs
 --
-ALTER TABLE `tblrejecteddogs`
-  ADD PRIMARY KEY (`username`,`dogID`),
-  ADD KEY `FK_dog` (`dogID`);
+ALTER TABLE tblrejecteddogs
+  ADD PRIMARY KEY (username,`dogID`),
+  ADD KEY FK_dog (dogID);
 
 --
--- Indexes for table `tblrejectedusers`
+-- Indexes for table tblrejectedusers
 --
-ALTER TABLE `tblrejectedusers`
-  ADD PRIMARY KEY (`username`,`RejectedUser`),
-  ADD KEY `FK_rejectedUser` (`RejectedUser`);
+ALTER TABLE tblrejectedusers
+  ADD PRIMARY KEY (username,`RejectedUser`),
+  ADD KEY FK_rejectedUser (RejectedUser);
 
 --
--- Indexes for table `tblusers`
+-- Indexes for table tblusers
 --
-ALTER TABLE `tblusers`
-  ADD PRIMARY KEY (`uID`),
-  ADD UNIQUE KEY `username` (`username`);
+ALTER TABLE tblusers
+  ADD PRIMARY KEY (uID),
+  ADD UNIQUE KEY username (username);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -350,7 +319,6 @@ ALTER TABLE `tblusers`
 
 --
 -- AUTO_INCREMENT for table `tbldogs`
-
 --
 ALTER TABLE `tbldogs`
   MODIFY `dogID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=702;
@@ -363,18 +331,17 @@ ALTER TABLE `tbldogs`
 -- AUTO_INCREMENT for table `tblmatch`
 --
 
+--
+-- AUTO_INCREMENT for table tblmatch
+--
+ALTER TABLE tblmatch
+  MODIFY matchID int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `tblmatch`
---
-
---
-
 -- AUTO_INCREMENT for table `tblnotifications`
 --
 ALTER TABLE `tblnotifications`
   MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 
 --
 -- AUTO_INCREMENT for table `tblnotifications`
@@ -393,14 +360,14 @@ ALTER TABLE `tblusers`
 --
 
 --
--- Constraints for table `tblfavorites`
+-- Constraints for table tblfavorites
 --
-ALTER TABLE `tblfavorites`
-  ADD CONSTRAINT `FK_dog_favorite` FOREIGN KEY (`dogID`) REFERENCES `tbldogs` (`dogID`),
-  ADD CONSTRAINT `FK_user_favorite` FOREIGN KEY (`ownerUser`) REFERENCES `tblusers` (`username`);
+ALTER TABLE tblfavorites
+  ADD CONSTRAINT FK_dog_favorite FOREIGN KEY (dogID) REFERENCES tbldogs (dogID),
+  ADD CONSTRAINT FK_user_favorite FOREIGN KEY (ownerUser) REFERENCES tblusers (username);
 
 --
-
+-- Constraints for table `tblmatch`
 --
 
 --
@@ -421,31 +388,27 @@ ALTER TABLE `tblnotifications`
 
 --
 -- Constraints for table `tblrejecteddogs`
+--
+ALTER TABLE tblmatch
+  ADD CONSTRAINT tblmatch_ibfk_1 FOREIGN KEY (interestedUser) REFERENCES tblusers (username),
+  ADD CONSTRAINT tblmatch_ibfk_2 FOREIGN KEY (uploader) REFERENCES tblusers (username),
+  ADD CONSTRAINT tblmatch_ibfk_3 FOREIGN KEY (dogID) REFERENCES tbldogs (dogID);
 
 --
+-- Constraints for table tblrejecteddogs
+--
+ALTER TABLE tblrejecteddogs
+  ADD CONSTRAINT FK_dog FOREIGN KEY (dogID) REFERENCES tbldogs (dogID),
+  ADD CONSTRAINT FK_user FOREIGN KEY (username) REFERENCES tblusers (username),
+  ADD CONSTRAINT tblrejecteddogs_ibfk_1 FOREIGN KEY (username) REFERENCES tblusers (username);
 
 --
--- Constraints for table `tblnotifications`
+-- Constraints for table tblrejectedusers
 --
-ALTER TABLE `tblnotifications`
-  ADD CONSTRAINT `FK_dog_notification` FOREIGN KEY (`dogID`) REFERENCES `tbldogs` (`dogID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tblrejecteddogs`
---
-ALTER TABLE `tblrejecteddogs`
-  ADD CONSTRAINT `FK_dog` FOREIGN KEY (`dogID`) REFERENCES `tbldogs` (`dogID`),
-  ADD CONSTRAINT `FK_user` FOREIGN KEY (`username`) REFERENCES `tblusers` (`username`),
-  ADD CONSTRAINT `tblrejecteddogs_ibfk_1` FOREIGN KEY (`username`) REFERENCES `tblusers` (`username`);
-
---
--- Constraints for table `tblrejectedusers`
---
-ALTER TABLE `tblrejectedusers`
-  ADD CONSTRAINT `FK_rejectedUser` FOREIGN KEY (`RejectedUser`) REFERENCES `tblusers` (`username`),
-  ADD CONSTRAINT `FK_user_rejectedUser` FOREIGN KEY (`username`) REFERENCES `tblusers` (`username`);
+ALTER TABLE tblrejectedusers
+  ADD CONSTRAINT FK_rejectedUser FOREIGN KEY (RejectedUser) REFERENCES tblusers (username),
+  ADD CONSTRAINT FK_user_rejectedUser FOREIGN KEY (username) REFERENCES tblusers (username);
 COMMIT;
-
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

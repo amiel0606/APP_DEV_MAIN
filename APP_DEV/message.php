@@ -21,9 +21,9 @@ if (!isset($_SESSION["uID"])) {
         <!-- Messages will be inserted here by JavaScript -->
     </div>
     <div class="inputbox">
-        <div id="ownerUserDiv" data-owneruser="someUser" style="display: none;"></div>
+        <div id="ownerUserDiv" data-owneruser="someUser" style="display: none;" data-dogid="haha"></div>
         <input id="message_input" type="text" style="display: none;">
-        <button id="sendbtn" style="display: none;" onclick="sendMessage()">
+        <button id="sendbtn" style="display: none;" onclick="sendMessage(this)">
             <img id="sendImg" src="./image/paper-plane.png" alt="Send">
         </button>
     </div>
@@ -42,10 +42,11 @@ $(document).ready(function() {
     }
 });
 
-    $.ajax({
-        url: './includes/getContacts.php',
-        type: 'GET',
-        success: function(response) {
+$.ajax({
+    url: './includes/getContacts.php',
+    type: 'GET',
+        success: function (response) {
+            console.log(response);
             var mssgsDiv = document.getElementById('mssgs');
             mssgsDiv.innerHTML = response;
         }
@@ -54,32 +55,44 @@ $(document).ready(function() {
 
 function handleClick(element) {
     var user = element.getAttribute('data-owneruser');
-    $('#ownerUserDiv').attr('data-owneruser', user);
-    $('#ownerUserDiv').text(user);
+    var dogID = element.getAttribute('data-dogid');
+    var messagesDiv = document.getElementById('messages');
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;    
+
+        $.ajax({
+            url: './includes/getConversation.php',
+            type: 'GET',
+            data: { user: user, dogID: dogID },
+            success: function (response) {
+                var messagesDiv = document.getElementById('messages');
+                messagesDiv.innerHTML = response;
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+        });
+
+    $('#ownerUserDiv').data('owneruser', user);
+    $('#ownerUserDiv').data('dogid', dogID);
+    $('#ownerUserDiv').text(user + ' - ' + dogID);
+
     $('#message_input').show();
     $('#sendbtn').show();
-    $.ajax({
-        url: './includes/getConversation.php',
-        type: 'GET',
-        data: { user: user },
-        success: function(response) {
-            var messagesDiv = document.getElementById('messages');
-            messagesDiv.innerHTML = response;
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
-        }
-    });
 }
+
 function sendMessage() {
-    var ownerUser = $('#ownerUserDiv').attr('data-owneruser');
+    var ownerUser = $('#ownerUserDiv').data('owneruser');
+    var dogID = $('#ownerUserDiv').data('dogid');
     var message = $('#message_input').val();
+    console.log(ownerUser + " " + dogID + " " + message);
     $.ajax({
         url: './includes/sendMessage.php',
         type: 'POST',
-        data: { ownerUser: ownerUser, message: message },
-        success: function(response) {
+        data: { ownerUser: ownerUser, message: message, dogID: dogID },
+        success: function (response) {
             var messagesDiv = document.getElementById('messages');
-            messagesDiv.insertAdjacentHTML('beforeend', response);
-            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            if (!messagesDiv.innerHTML.includes(response.trim())) {
+                messagesDiv.insertAdjacentHTML('beforeend', response);
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
         }
     });
     $('#message_input').val('');

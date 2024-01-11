@@ -1,26 +1,25 @@
 <?php
+
     session_start();
     include_once('dbCon.php');
     $loggedInUser = $_SESSION['username'];
 
-    $query = "
-    (SELECT uploader AS user, MAX(m.timestamp) AS max_timestamp 
-    FROM tblfavorites f 
-    LEFT JOIN tblmessages m ON (m.sender = f.ownerUser AND m.receiver = f.uploader) OR (m.sender = f.uploader AND m.receiver = f.ownerUser) 
-    WHERE f.ownerUser = ? 
-    GROUP BY f.uploader)
-    UNION
-    (SELECT ownerUser AS user, MAX(m.timestamp) AS max_timestamp 
-    FROM tblfavorites f 
-    LEFT JOIN tblmessages m ON (m.sender = f.ownerUser AND m.receiver = f.uploader) OR (m.sender = f.uploader AND m.receiver = f.ownerUser) 
-    WHERE f.uploader = ? 
-    GROUP BY f.ownerUser)
-    ORDER BY max_timestamp DESC";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("ss", $loggedInUser, $loggedInUser);
-    $stmt->execute();
-    $result = $stmt->get_result();
+    // Query for contacts for interested user awdawdawdawd
+    $query1 = "SELECT m.uploader, d.name, d.dogID FROM tblmatch m INNER JOIN tbldogs d ON m.dogID = d.dogID WHERE m.interestedUser = ?";
+    $stmt1 = $conn->prepare($query1);
+    $stmt1->bind_param("s", $loggedInUser);
+    $stmt1->execute();
+    $result1 = $stmt1->get_result();
+    while ($row = $result1->fetch_assoc()) {
+        echo '<div class="ownerUser" data-owneruser="' . $row['uploader'] . '" data-dogid="' . $row['dogID'] . '" onclick="handleClick(this)">' . $row['uploader'] . ' - ' . $row['name'] . '</div>';
+    }
 
-    while ($row = $result->fetch_assoc()) {
-        echo '<div class="ownerUser" data-owneruser="' . $row['user'] . '" onclick="handleClick(this)">' . $row['user'] . '</div>';
+    // Query for contacts for uploader ahaawadad
+    $query2 = "SELECT n.sender, d.name, d.dogID FROM tblnotifications n INNER JOIN tbldogs d ON n.dogID = d.dogID WHERE n.type = 'Success' AND n.receiver = ?";
+    $stmt2 = $conn->prepare($query2);
+    $stmt2->bind_param("s", $loggedInUser);
+    $stmt2->execute();
+    $result2 = $stmt2->get_result();
+    while ($row = $result2->fetch_assoc()) {
+        echo '<div class="ownerUser" data-owneruser="' . $row['sender'] . '" data-dogid="' . $row['dogID'] . '" onclick="handleClick(this)">' . $row['sender'] . ' - ' . $row['name'] . '</div>';
     }

@@ -7,8 +7,6 @@ if (!isset($_SESSION["uID"])) {
 }
 ?>
     <div class="right-panel">
-
-        
         <div id="dog-container">
             <div id="dog-card">
                 <img src="./image/defaultDoggo.png" alt="Default Dog Image">
@@ -183,7 +181,6 @@ if (!isset($_SESSION["uID"])) {
         }
     });
 });
-
 $(".paw-button").click(function () {
     var dogID = $("#dog-card img").data("dogid");
     $.ajax({
@@ -223,7 +220,6 @@ $(".paw-button").click(function () {
         }
     });
 }
-
 
 function fetchNextDog() {
     $.ajax({
