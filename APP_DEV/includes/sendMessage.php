@@ -11,3 +11,8 @@ $receiver = $ownerUser;
 $stmt = $conn->prepare("INSERT INTO tblmessages (sender, receiver, message, seen, received, timestamp) VALUES (?, ?, ?, 0, 0, NOW())");
 $stmt->bind_param("sss", $sender, $receiver, $message);
 $stmt->execute();
+
+$html = '<div class="sent-message">';
+$html .= '<p><strong>' . htmlspecialchars($sender) . ':</strong> ' . htmlspecialchars($message) . '</p>';
+$html .= '</div>';
+echo $html;

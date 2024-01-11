@@ -1,77 +1,92 @@
-
 <?php 
 include_once('./includes/header.php');
 if (!isset($_SESSION["uID"])) {
     header("location: ./index.php?error=UserLoggedOut");
     exit();
 }
-?>
+?>  
+
 
 <!-- DIV CONTACTS -->
 <div id="rectangle_message">
-    <h2>Messages</h2>
-    <?php
-    include_once('./includes/dbCon.php');
-    $user = $_SESSION['username'];
-    $query = "SELECT ownerUser FROM tblfavorites WHERE uploader = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("s", $user);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    echo '<div id="mssgs">';
-    while ($row = $result->fetch_assoc()) {
-        echo '<div class="ownerUser" data-owneruser="' . $row['ownerUser'] . '" onclick="handleClick(this)">' . $row['ownerUser'] . '</div>';
-    }
-    echo '</div>';
-    ?>
+    <div class = "h2message">
+        <h2>Messages</h2>
+    </div>
+    <div id="mssgs">
+    </div>
+    <hr class="hr">
 </div>
-<div class="vertical-line"></div>
 <!-- END OF DIV CONTACTS -->
 
 <!-- MESSAGING WINDOW -->
 <div id="rectangle_convo">
+    <div id="messages">
+        <!-- Messages will be inserted here by JavaScript -->
+    </div>
     <div class="inputbox">
-        <div id="ownerUserDiv" data-owneruser="someUser"></div>
+        <div id="ownerUserDiv" data-owneruser="someUser" style="display: none;"></div>
         <input id="message_input" type="text" style="display: none;">
-        <button id="sendbtn" style="display: none;">
+        <button id="sendbtn" style="display: none;" onclick="sendMessage()">
             <img id="sendImg" src="./image/paper-plane.png" alt="Send">
         </button>
     </div>
 </div>
-
 <!-- END OF MESSAGING WINDOW -->
 
 <!-- JAVASCRIPT FOR THIS PAGE -->
 <script>
-
-    function handleClick(ownerUserDiv) {
-        var ownerUser = ownerUserDiv.getAttribute('data-owneruser');
-
-        // Change the URL
-        window.history.pushState({}, '', '?user=' + encodeURIComponent(ownerUser));
-
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', './includes/getConversation.php?user=' + encodeURIComponent(ownerUser), true);
-        xhr.onload = function () {
-            if (this.status == 200) {
-                var conversation = this.responseText.trim().split('\n');
-                updateConversation(conversation);
-            }
-        };
-        xhr.send();
+$(document).ready(function() {
+    $('#message_input').hide();
+    $('#sendbtn').hide();
+    $('#message_input').on('keypress', function(e) {
+    if (e.keyCode === 13) {
+        sendMessage();
+        e.preventDefault();
     }
+});
 
-    function updateConversation(conversation) {
-        var rectangleConvoDiv = document.getElementById('rectangle_convo');
-        rectangleConvoDiv.innerHTML = ''; // Clear the existing conversation
-
-        for (var i = 0; i < conversation.length; i++) {
-            var messageDiv = document.createElement('div');
-            messageDiv.textContent = conversation[i];
-            rectangleConvoDiv.appendChild(messageDiv);
+    $.ajax({
+        url: './includes/getContacts.php',
+        type: 'GET',
+        success: function(response) {
+            var mssgsDiv = document.getElementById('mssgs');
+            mssgsDiv.innerHTML = response;
         }
-    }
+    });
+});
+
+function handleClick(element) {
+    var user = element.getAttribute('data-owneruser');
+    $('#ownerUserDiv').attr('data-owneruser', user);
+    $('#ownerUserDiv').text(user);
+    $('#message_input').show();
+    $('#sendbtn').show();
+    $.ajax({
+        url: './includes/getConversation.php',
+        type: 'GET',
+        data: { user: user },
+        success: function(response) {
+            var messagesDiv = document.getElementById('messages');
+            messagesDiv.innerHTML = response;
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+    });
+}
+function sendMessage() {
+    var ownerUser = $('#ownerUserDiv').attr('data-owneruser');
+    var message = $('#message_input').val();
+    $.ajax({
+        url: './includes/sendMessage.php',
+        type: 'POST',
+        data: { ownerUser: ownerUser, message: message },
+        success: function(response) {
+            var messagesDiv = document.getElementById('messages');
+            messagesDiv.insertAdjacentHTML('beforeend', response);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+    });
+    $('#message_input').val('');
+}
 
 </script>
 <!-- END OF JAVASCRIPT FOR THIS PAGE -->
