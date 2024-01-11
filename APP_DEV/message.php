@@ -8,7 +8,9 @@ if (!isset($_SESSION["uID"])) {
 
 <!-- DIV CONTACTS -->
 <div id="rectangle_message">
-    <h2>Messages</h2>
+    <div class="h2message">
+        <h2>Messages</h2>
+    </div>
     <div id="mssgs">
     </div>
     <hr class="hr">
@@ -17,9 +19,15 @@ if (!isset($_SESSION["uID"])) {
 
 <!-- MESSAGING WINDOW -->
 <div id="rectangle_convo">
-    <div id="messages">
+    <div id="messages" >
         <!-- Messages will be inserted here by JavaScript -->
     </div>
+    <div id="details">
+        <div id="text">
+            <button id="off" style="position: absolute; top: 0; right: 0; cursor: pointer;">X</button>
+        </div>
+    </div>
+
     <div class="inputbox">
         <div id="ownerUserDiv" data-owneruser="someUser" style="display: none;" data-dogid="haha"></div>
         <input id="message_input" type="text" style="display: none;">
@@ -40,13 +48,18 @@ $(document).ready(function() {
         sendMessage();
         e.preventDefault();
     }
+    $('#off').click(function(){
+        $('#details').hide();
+        $('#text').hide();
+    });
 });
+
+
 
 $.ajax({
     url: './includes/getContacts.php',
     type: 'GET',
         success: function (response) {
-            console.log(response);
             var mssgsDiv = document.getElementById('mssgs');
             mssgsDiv.innerHTML = response;
         }
@@ -67,6 +80,7 @@ function handleClick(element) {
                 var messagesDiv = document.getElementById('messages');
                 messagesDiv.innerHTML = response;
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                $('#details').show();
             }
         });
 
@@ -82,7 +96,6 @@ function sendMessage() {
     var ownerUser = $('#ownerUserDiv').data('owneruser');
     var dogID = $('#ownerUserDiv').data('dogid');
     var message = $('#message_input').val();
-    console.log(ownerUser + " " + dogID + " " + message);
     $.ajax({
         url: './includes/sendMessage.php',
         type: 'POST',
@@ -97,6 +110,8 @@ function sendMessage() {
     });
     $('#message_input').val('');
 }
+
+
 
 </script>
 <!-- END OF JAVASCRIPT FOR THIS PAGE -->

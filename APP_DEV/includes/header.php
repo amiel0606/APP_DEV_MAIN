@@ -59,7 +59,7 @@
             var result = JSON.parse(response);
             if (result.status === "Success") {
                 alert('Match accepted successfully.');
-                fetchNotifications(); // Refresh notifications after accepting a match
+                fetchNotifications();
             } else {
                 alert('Unexpected response while accepting match.');
             }
@@ -70,6 +70,30 @@
     });
 }
 
+    function declineMatch(receiver, sender, timestamp) {
+    $.ajax({
+        type: 'POST',
+        url: './includes/declineMatch.php',
+        data: {
+            sender: sender,
+            receiver: receiver,
+            timestamp: timestamp
+        },
+        success: function (response) {
+            console.log(response);
+            var result = JSON.parse(response);
+            if (result.status === "Success") {
+                alert('Match declined successfully.');
+                fetchNotifications();
+            } else {
+                alert('Unexpected response while declining match.');
+            }
+        },
+        error: function () {
+            alert('Error declining match.');
+        }
+    });
+    }
 
         function toggleNotification() {
             $('.notification-overlay').toggleClass('show');
@@ -100,6 +124,10 @@
                             $('.notification-content').append(notificationItem);
                             notificationButtons.find('.accept-btn').on('click', function () {
                                 acceptMatch(notification.sender, notification.receiver, notification.timestamp);
+                            });
+                            notificationButtons.find('.decline-btn').on('click', function () {
+                                console.log(notification.sender, notification.receiver, notification.timestamp);
+                                declineMatch(notification.sender, notification.receiver, notification.timestamp);
                             });
                         });
                     } else {
